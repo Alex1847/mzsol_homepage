@@ -1063,7 +1063,7 @@
 <body>
     <header>
         <nav>
-            <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+            <div class="logo" onclick="goHome()" onkeydown="handleLogoKeydown(event)" role="button" tabindex="0" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
                 <img src="images/logo.png" alt="MZ SOL Logo" style="height: 40px; background: white; padding: 4px; border-radius: 6px; object-fit: contain;">
                 <span>mzsol.com</span>
             </div>
@@ -2833,6 +2833,20 @@ TechDev Korea
                 }
             });
         });
+
+        function goHome() {
+            const home = document.getElementById('home');
+            if (home) {
+                home.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function handleLogoKeydown(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                goHome();
+            }
+        }
 
         // 스크롤 시 헤더 스타일 변경
         window.addEventListener('scroll', function() {
