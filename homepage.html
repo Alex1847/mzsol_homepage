@@ -2817,7 +2817,7 @@ TechDev Korea
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('mes-detail-view');
             detail.classList.add('active');
-            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function showCounterDetail() {
@@ -2866,8 +2866,9 @@ TechDev Korea
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
-            document.getElementById('sensor-network-detail-view').classList.add('active');
-            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const detail = document.getElementById('sensor-network-detail-view');
+            detail.classList.add('active');
+            detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function hideSensorNetworkDetail() {
@@ -2900,8 +2901,9 @@ TechDev Korea
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
-            document.getElementById('power-detail-view').classList.add('active');
-            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const detail = document.getElementById('power-detail-view');
+            detail.classList.add('active');
+            detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function showPowerDetailFromBenefits() {
@@ -2947,8 +2949,9 @@ TechDev Korea
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
-            document.getElementById('safety-detail-view').classList.add('active');
-            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const detail = document.getElementById('safety-detail-view');
+            detail.classList.add('active');
+            detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function hideSafetyDetail() {
