@@ -1044,6 +1044,7 @@
         }
         .launch-close-btn:hover { color: #666; }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
     <header>
@@ -2850,8 +2851,18 @@ TechDev Korea
             observer.observe(card);
         });
 
+        const EMAILJS_CONFIG = {
+            publicKey: 'YOUR_EMAILJS_PUBLIC_KEY',
+            serviceId: 'YOUR_EMAILJS_SERVICE_ID',
+            templateId: 'YOUR_EMAILJS_TEMPLATE_ID'
+        };
+
+        if (window.emailjs && !EMAILJS_CONFIG.publicKey.startsWith('YOUR_')) {
+            emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
+        }
+
         // 문의하기 버튼 클릭 로직
-        function submitInquiry() {
+        async function submitInquiry() {
             const agree = document.getElementById('inquiry-agree').checked;
             if (!agree) {
                 alert('개인정보 수집 및 이용에 동의해야 문의를 보낼 수 있습니다.');
@@ -2865,11 +2876,37 @@ TechDev Korea
                 alert('제목과 내용을 모두 입력해주세요.');
                 return;
             }
-            
-            const subject = encodeURIComponent(title);
-            const body = encodeURIComponent(`문의 제목: ${title}\n\n문의 내용:\n${content}`);
-            window.location.href = `mailto:venturs@naver.com?subject=${subject}&body=${body}`;
-            
+
+            if (!window.emailjs || Object.values(EMAILJS_CONFIG).some(value => value.startsWith('YOUR_'))) {
+                const subject = encodeURIComponent(title);
+                const body = encodeURIComponent(`문의 제목: ${title}\n\n문의 내용:\n${content}`);
+                window.location.href = `mailto:venturs@naver.com?subject=${subject}&body=${body}`;
+                return;
+            }
+
+            const submitButton = document.querySelector('.inquiry-submit');
+            const originalButtonText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = '전송 중...';
+
+            try {
+                await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
+                    to_email: 'venturs@naver.com',
+                    inquiry_title: title,
+                    inquiry_content: content,
+                    message: `문의 제목: ${title}\n\n문의 내용:\n${content}`
+                });
+
+                alert('문의가 정상적으로 전송되었습니다.');
+            } catch (error) {
+                console.error('EmailJS send failed:', error);
+                alert('문의 전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                return;
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            }
+
             // 폼 초기화
             document.getElementById('inquiry-title').value = '';
             document.getElementById('inquiry-content').value = '';
