@@ -1,0 +1,2880 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기술개발 프로그램 - TechDev Korea</title>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: transparent;
+            transition: background 0.3s, box-shadow 0.3s;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: url('images/hero_bg.png') no-repeat center center;
+            background-size: cover;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+
+        .hero > * {
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .hero-logo-large {
+            margin: 2rem 0 4rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .hero-logo-large img {
+            height: 70px;
+            background: white;
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .hero-features {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 2rem;
+        }
+
+        .hero-feature-box {
+            flex: 1;
+            min-width: 200px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 1.5rem 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .hero-feature-box:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-5px);
+        }
+
+        .hero-feature-title {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: 0.8rem;
+            text-align: center;
+            word-break: keep-all;
+        }
+
+        .hero-feature-main {
+            font-size: 1.4rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-align: center;
+            word-break: keep-all;
+        }
+
+        .hero-feature-icon {
+            font-size: 1.8rem;
+            opacity: 0.8;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            z-index: 2;
+            animation: bounce 2s infinite;
+            color: white;
+            text-decoration: none;
+        }
+
+        .scroll-down span {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            letter-spacing: 2px;
+        }
+
+        .scroll-down i {
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 8px;
+            transform: rotate(45deg);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+
+        .programs {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .program-grid::-webkit-scrollbar,
+        .benefit-items::-webkit-scrollbar {
+            height: 8px;
+        }
+        .program-grid::-webkit-scrollbar-track,
+        .benefit-items::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 4px;
+        }
+        .program-grid::-webkit-scrollbar-thumb,
+        .benefit-items::-webkit-scrollbar-thumb {
+            background: rgba(100,100,100,0.2);
+            border-radius: 4px;
+        }
+        .program-grid::-webkit-scrollbar-thumb:hover,
+        .benefit-items::-webkit-scrollbar-thumb:hover {
+            background: rgba(100,100,100,0.4);
+        }
+
+        .program-grid {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 2rem;
+            padding-bottom: 2rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .program-card {
+            flex: 0 0 auto;
+            width: 320px;
+            scroll-snap-align: start;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .program-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .program-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .program-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .program-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .program-card li {
+            padding: 0.3rem 0;
+            color: #555;
+        }
+
+        .program-card li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .benefits {
+            background: #f8f9fa;
+            padding: 80px 2rem;
+        }
+
+        .benefits-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefit-items {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-bottom: 2rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .benefit-item {
+            flex: 0 0 auto;
+            width: 320px;
+            scroll-snap-align: start;
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .benefit-item .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .inquiry {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 2rem;
+        }
+
+        .inquiry-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .inquiry-form input,
+        .inquiry-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .inquiry-form input:focus,
+        .inquiry-form textarea:focus {
+            border-color: #667eea;
+        }
+
+        .inquiry-form textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .inquiry-agreement {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .inquiry-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .inquiry-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .location {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 2rem;
+        }
+
+        .map-container {
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .location-info {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button, .download-button {
+                width: 80%;
+                max-width: 300px;
+            }
+        }
+
+        /* MES 상세 페이지 스타일 */
+        .mes-detail {
+            display: none;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        .mes-detail.active {
+            display: block;
+        }
+
+        .mes-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+
+        .mes-back-btn:hover {
+            transform: translateX(-4px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        .mes-back-btn::before {
+            content: "←";
+            font-size: 1.1rem;
+        }
+
+        .mes-hero-banner {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mes-hero-banner::after {
+            content: "🏭";
+            position: absolute;
+            right: 2rem;
+            font-size: 8rem;
+            opacity: 0.1;
+        }
+
+        .mes-hero-banner h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .mes-hero-banner p {
+            font-size: 1.05rem;
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        .mes-badge {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin: 0.3rem 0.2rem 0;
+        }
+
+        /* 작업흐름 */
+        .mes-workflow {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2.5rem;
+        }
+
+        .mes-workflow h3 {
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .workflow-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .workflow-step {
+            flex: 1;
+            min-width: 130px;
+            text-align: center;
+            position: relative;
+        }
+
+        .workflow-step-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 12px;
+            padding: 1.2rem 0.8rem;
+            margin-bottom: 0.6rem;
+            cursor: default;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .workflow-step-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(102,126,234,0.35);
+        }
+
+        .workflow-step-icon {
+            font-size: 2rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .workflow-step-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .workflow-step-desc {
+            font-size: 0.75rem;
+            color: #666;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .workflow-arrow {
+            font-size: 1.5rem;
+            color: #667eea;
+            flex-shrink: 0;
+            align-self: flex-start;
+            margin-top: 1.5rem;
+        }
+
+        /* 메뉴 그리드 */
+        .mes-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .mes-menu-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-top: 4px solid;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .mes-menu-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        .mes-menu-card:nth-child(1) { border-color: #667eea; }
+        .mes-menu-card:nth-child(2) { border-color: #f59e0b; }
+        .mes-menu-card:nth-child(3) { border-color: #10b981; }
+        .mes-menu-card:nth-child(4) { border-color: #ef4444; }
+        .mes-menu-card:nth-child(5) { border-color: #3b82f6; }
+        .mes-menu-card:nth-child(6) { border-color: #8b5cf6; }
+        .mes-menu-card:nth-child(7) { border-color: #06b6d4; }
+        .mes-menu-card:nth-child(8) { border-color: #84cc16; }
+
+        .mes-menu-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.2rem;
+        }
+
+        .mes-menu-card-icon {
+            font-size: 2rem;
+        }
+
+        .mes-menu-card h4 {
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .mes-menu-card-desc {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .mes-menu-items {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mes-menu-items li {
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            color: #555;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mes-menu-items li:last-child {
+            border-bottom: none;
+        }
+
+        .mes-menu-items li::before {
+            content: "▸";
+            color: #667eea;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* 특징 요약 */
+        .mes-features-summary {
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid #e0e7ff;
+        }
+
+        .mes-features-summary h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mes-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .mes-feature-chip {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            font-size: 0.9rem;
+            color: #444;
+            font-weight: 500;
+        }
+
+        .mes-feature-chip .chip-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .mes-screen-example {
+            margin-top: 2rem;
+        }
+
+        .mes-screen-example h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mes-screen-example-frame {
+            background: #fff;
+            border: 1px solid #dbe3ef;
+            border-radius: 12px;
+            padding: 0.75rem;
+            box-shadow: 0 8px 24px rgba(31, 41, 55, 0.12);
+        }
+
+        .mes-screen-example-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .counter-device-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+            gap: 1.8rem;
+            align-items: stretch;
+            margin-bottom: 2.5rem;
+        }
+
+        .counter-device-photo,
+        .counter-device-panel {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(31, 41, 55, 0.1);
+            overflow: hidden;
+        }
+
+        .counter-device-photo {
+            border: 1px solid #e5e7eb;
+        }
+
+        .counter-device-photo img,
+        .counter-device-photo video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            object-fit: cover;
+        }
+
+        .sensor-network-photo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .sensor-network-photo img {
+            width: 88%;
+            height: auto;
+            max-height: 360px;
+            min-height: 0;
+            object-fit: contain;
+        }
+
+        .counter-device-panel {
+            padding: 2rem;
+            border-top: 4px solid #f59e0b;
+        }
+
+        .counter-device-panel h3 {
+            color: #111827;
+            font-size: 1.45rem;
+            margin-bottom: 1rem;
+        }
+
+        .counter-device-panel p {
+            color: #4b5563;
+            margin-bottom: 1.2rem;
+        }
+
+        .counter-spec-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+
+        .counter-spec {
+            background: #f9fafb;
+            border: 1px solid #edf0f5;
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .counter-spec strong {
+            display: block;
+            color: #111827;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .counter-spec span {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        .counter-stat-band {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .counter-stat {
+            background: linear-gradient(135deg, #111827 0%, #374151 100%);
+            color: white;
+            border-radius: 14px;
+            padding: 1.3rem;
+            box-shadow: 0 8px 20px rgba(17, 24, 39, 0.14);
+        }
+
+        .counter-stat b {
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .counter-stat span {
+            font-size: 0.9rem;
+            opacity: 0.82;
+        }
+
+        .mes-clickable {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mes-clickable:hover {
+            background: rgba(102,126,234,0.08);
+            border-radius: 8px;
+            padding-left: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .workflow-steps {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .workflow-arrow {
+                transform: rotate(90deg);
+                margin: 0 auto;
+            }
+            .mes-hero-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .mes-hero-banner h2 {
+                font-size: 1.7rem;
+            }
+            .counter-device-layout {
+                grid-template-columns: 1fr;
+            }
+            .counter-spec-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 시스템 실행 로딩 모달 */
+        .launch-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .launch-modal-overlay.active {
+            display: flex;
+        }
+        .launch-modal {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .launch-modal-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .launch-modal h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #155724;
+            margin-bottom: 0.5rem;
+        }
+        .launch-modal p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .launch-spinner {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #e0f0e5;
+            border-top-color: #28a745;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .launch-progress {
+            background: #e0f0e5;
+            border-radius: 10px;
+            height: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .launch-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .launch-status {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        .launch-open-btn {
+            display: inline-block;
+            margin-top: 1.2rem;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .launch-open-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(40,167,69,0.4);
+        }
+        .launch-close-btn {
+            display: block;
+            margin-top: 0.8rem;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .launch-close-btn:hover { color: #666; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                <img src="images/logo.png" alt="MZ SOL Logo" style="height: 40px; background: white; padding: 4px; border-radius: 6px; object-fit: contain;">
+                <span>mzsol.com</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#programs">솔루션개발</a></li>
+                <li><a href="#benefits">지원혜택</a></li>
+                <li><a href="#inquiry">문의사항</a></li>
+                <li><a href="#location">찾아오시는길</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-subtitle">시대가 필요로 하는 가치 추구</div>
+        <div class="hero-subtitle">인간만의 사회적 가치 추구</div>
+        
+        <div class="hero-logo-large">
+            <img src="images/logo.png" alt="MZ SOL Logo">
+            <span>mzsol.com</span>
+        </div>
+
+        <div class="hero-features">
+            <div class="hero-feature-box" onclick="launchPowerSystem()" style="cursor:pointer;" title="클릭하면 전력관리 시스템이 실행됩니다">
+                <div class="hero-feature-title">탄소중립전력계량관리시스템</div>
+                <div class="hero-feature-main">
+                    전력관리 <span class="hero-feature-icon">⚡</span>
+                </div>
+            </div>
+            <div class="hero-feature-box" onclick="launchMesSystem()" style="cursor:pointer;" title="클릭하면 MES 시스템이 실행됩니다">
+                <div class="hero-feature-title">생산관리시스템</div>
+                <div class="hero-feature-main">
+                    MES <span class="hero-feature-icon">🏭</span>
+                </div>
+            </div>
+            <div class="hero-feature-box">
+                <div class="hero-feature-title">절삭유 오염관리 및 교체시점관리</div>
+                <div class="hero-feature-main">
+                    센서개발 <span class="hero-feature-icon">🧪</span>
+                </div>
+            </div>
+            <div class="hero-feature-box" onclick="launchSafetySystem()" style="cursor:pointer;" title="클릭하면 산업안전관리 시스템이 실행됩니다">
+                <div class="hero-feature-title">안전장구착용 및 화재감지</div>
+                <div class="hero-feature-main">
+                    사업장 안전관리 <span class="hero-feature-icon">🛡️</span>
+                </div>
+            </div>
+        </div>
+
+        <a href="#programs" class="scroll-down">
+            <i></i>
+            <span>SCROLL</span>
+        </a>
+    </section>
+
+    <section class="programs" id="programs">
+        <h2 class="section-title">솔루션개발</h2>
+
+        <!-- 기본 솔루션 카드 목록 -->
+        <div id="programs-grid-view">
+            <div class="program-grid">
+                <div class="program-card">
+                    <div class="program-icon">🖥️</div>
+                    <h3>솔루션개발</h3>
+                    <p>스마트팩토리에 적합한 소프트웨어개발</p>
+                    <ul>
+                        <li class="mes-clickable" onclick="showMesDetail()" title="MES 상세보기 클릭">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">🏭</span> MES
+                            <span style="margin-left:auto; font-size:0.8rem; color:#667eea; font-weight:600;">자세히 보기 →</span>
+                        </li>
+                        <li class="mes-clickable" onclick="showPowerDetail()" title="전력관리솔루션 상세보기 클릭">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">⚡</span> 전력솔루션
+                            <span style="margin-left:auto; font-size:0.8rem; color:#667eea; font-weight:600;">자세히 보기 →</span>
+                        </li>
+                        <li class="mes-clickable" onclick="showSafetyDetail()" title="산업안전관리솔루션 상세보기 클릭">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">🛡️</span> 산업안전관리솔루션
+                            <span style="margin-left:auto; font-size:0.8rem; color:#667eea; font-weight:600;">자세히 보기 →</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-icon">📡</div>
+                    <h3>IoT 장비개발</h3>
+                    <p>산업 현장에 최적화된 IoT 장비 및 통합 관리 시스템 구축</p>
+                    <ul>
+                        <li class="mes-clickable" onclick="showCounterDetail()" title="카운터 상세보기 클릭">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">🔢</span> 카운터
+                            <span style="margin-left:auto; font-size:0.8rem; color:#667eea; font-weight:600;">자세히 보기 →</span>
+                        </li>
+                        <li class="mes-clickable" onclick="showSensorNetworkDetail()" title="센서네트워크 상세보기 클릭">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">🌡️</span> 센서네트워크
+                            <span style="margin-left:auto; font-size:0.8rem; color:#667eea; font-weight:600;">자세히 보기 →</span>
+                        </li>
+                        <li>에너지관리시스템</li>
+                    </ul>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-icon">⚙️</div>
+                    <h3>자동화관련장비</h3>
+                    <p>현장 맞춤형 자동화 장비 및 제어 시스템 구축</p>
+                    <ul>
+                        <li>전장판넬 제작설치</li>
+                        <li>PLC 및 TOUCH 프로그램 개발적용</li>
+                        <li>기타 개발요청사항 적용 및 AS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- IoT 카운터 상세 페이지 -->
+        <div id="counter-detail-view" class="mes-detail">
+            <button class="mes-back-btn" onclick="hideCounterDetail()">이전으로 돌아가기</button>
+
+            <div class="mes-hero-banner" style="background: linear-gradient(135deg, #1f2937 0%, #7c2d12 52%, #f59e0b 100%);">
+                <div>
+                    <h2>🔢 IoT 카운터 장비개발</h2>
+                    <p>현장 설비의 생산 수량·동작 횟수·이벤트 발생을 실시간으로 수집하고<br>디지털 표시와 원격 모니터링까지 연결하는 스마트 카운터 장비</p>
+                    <div style="margin-top:1rem;">
+                        <span class="mes-badge">실시간 수량 카운팅</span>
+                        <span class="mes-badge">디지털 LED 표시</span>
+                        <span class="mes-badge">센서 입력 연동</span>
+                        <span class="mes-badge">무선 데이터 전송</span>
+                        <span class="mes-badge">알람·임계값 관리</span>
+                        <span class="mes-badge">Web 대시보드 연계</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="counter-device-layout">
+                <div class="counter-device-photo">
+                    <video src="images/counterDemo.mp4" aria-label="IoT 카운터 장비 동영상" autoplay muted loop playsinline></video>
+                </div>
+                <div class="counter-device-panel">
+                    <h3>현장형 디지털 카운터</h3>
+                    <p>설비의 펄스, 근접센서, 포토센서, 버튼 입력을 받아 카운트 값을 즉시 표시하고 서버로 전송합니다. 작업자는 현장에서 숫자를 바로 확인하고, 관리자는 웹 화면에서 누적 수량과 이상 이벤트를 함께 확인할 수 있습니다.</p>
+                    <div class="counter-spec-grid">
+                        <div class="counter-spec">
+                            <strong>입력 방식</strong>
+                            <span>센서·접점·버튼 입력</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>표시 방식</strong>
+                            <span>고휘도 LED 숫자 표시</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>통신 연동</strong>
+                            <span>Wi-Fi·RS485·Gateway 확장</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>관리 기능</strong>
+                            <span>목표 수량·알람·이력 조회</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="counter-stat-band">
+                <div class="counter-stat">
+                    <b>16</b>
+                    <span>현장 표시값을 크게 보여주는 LED 카운트</span>
+                </div>
+                <div class="counter-stat">
+                    <b>24H</b>
+                    <span>설비 이벤트와 생산 수량 상시 기록</span>
+                </div>
+                <div class="counter-stat">
+                    <b>Web</b>
+                    <span>카운터 데이터를 대시보드와 리포트로 확인</span>
+                </div>
+            </div>
+
+            <div class="mes-workflow">
+                <h3>⚙️ 데이터 수집 흐름</h3>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#f59e0b,#d97706);">
+                            <div class="workflow-step-icon">📥</div>
+                            <div class="workflow-step-name">센서 입력</div>
+                        </div>
+                        <div class="workflow-step-desc">제품 통과·버튼<br>펄스 신호 수신</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#111827,#374151);">
+                            <div class="workflow-step-icon">🔢</div>
+                            <div class="workflow-step-name">카운트 처리</div>
+                        </div>
+                        <div class="workflow-step-desc">증가·감소·리셋<br>목표값 비교</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#ef4444,#dc2626);">
+                            <div class="workflow-step-icon">💡</div>
+                            <div class="workflow-step-name">LED 표시</div>
+                        </div>
+                        <div class="workflow-step-desc">현장 작업자용<br>숫자 즉시 표시</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#3b82f6,#2563eb);">
+                            <div class="workflow-step-icon">📡</div>
+                            <div class="workflow-step-name">데이터 전송</div>
+                        </div>
+                        <div class="workflow-step-desc">Gateway·서버<br>실시간 업로드</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#10b981,#059669);">
+                            <div class="workflow-step-icon">📊</div>
+                            <div class="workflow-step-name">통합 관리</div>
+                        </div>
+                        <div class="workflow-step-desc">대시보드·이력<br>리포트 분석</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size:1.4rem; color:#333; margin-bottom:1.5rem;">📂 주요 기능</h3>
+            <div class="mes-menu-grid">
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🔢</span>
+                        <h4>실시간 카운팅</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">생산 수량과 설비 동작 횟수를 정확하게 누적 관리</p>
+                    <ul class="mes-menu-items">
+                        <li>증가 / 감소 / 리셋 카운트</li>
+                        <li>목표 수량 대비 진행률 표시</li>
+                        <li>오입력 방지를 위한 신호 필터링</li>
+                        <li>정전 후 복구 시 누적값 유지</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📡</span>
+                        <h4>IoT 통신 연동</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">현장 카운터 데이터를 관리 서버와 실시간 연결</p>
+                    <ul class="mes-menu-items">
+                        <li>Wi-Fi / Gateway 기반 데이터 전송</li>
+                        <li>장비별 식별번호 등록</li>
+                        <li>연결 상태 및 통신 장애 감지</li>
+                        <li>MES·전력관리 시스템 확장 연계</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🚨</span>
+                        <h4>알람·임계값 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">목표 수량 도달, 비정상 카운트, 장비 이상을 빠르게 알림</p>
+                    <ul class="mes-menu-items">
+                        <li>목표값 도달 알림</li>
+                        <li>비정상 급증·무응답 감지</li>
+                        <li>장비별 알람 조건 설정</li>
+                        <li>관리자 알림 및 이력 저장</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📊</span>
+                        <h4>대시보드·리포트</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">장비별 생산 수량과 시간대별 추이를 한눈에 확인</p>
+                    <ul class="mes-menu-items">
+                        <li>라인별 카운트 현황</li>
+                        <li>시간·일·월 단위 통계</li>
+                        <li>목표 대비 달성률 분석</li>
+                        <li>CSV·보고서 출력 확장</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mes-features-summary" style="background: linear-gradient(135deg, #fff7ed 0%, #fffbeb 100%); border-color: #fed7aa;">
+                <h3>✨ 적용 효과</h3>
+                <div class="mes-features-grid">
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">👀</span>
+                        <span>현장 작업자<br>즉시 확인</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📉</span>
+                        <span>수기 집계 오류<br>최소화</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">⚡</span>
+                        <span>실시간 생산성<br>추적</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🔧</span>
+                        <span>현장 조건 맞춤<br>제작 가능</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <button class="mes-back-btn" onclick="hideCounterDetail()">이전으로 돌아가기</button>
+            </div>
+        </div>
+
+        <!-- 센서네트워크 상세 페이지 -->
+        <div id="sensor-network-detail-view" class="mes-detail">
+            <button class="mes-back-btn" onclick="hideSensorNetworkDetail()">이전으로 돌아가기</button>
+
+            <div class="mes-hero-banner" style="background: linear-gradient(135deg, #0f172a 0%, #075985 52%, #22d3ee 100%);">
+                <div>
+                    <h2>🌡️ 센서네트워크</h2>
+                    <p>온습도·압력·미세먼지 센서 데이터를 MQTT 서버와 Web 서버로 수집하고<br>휴대폰 전송 및 PC 이력·트렌드 저장까지 연계하는 IoT 센서 통합 네트워크</p>
+                    <div style="margin-top:1rem;">
+                        <span class="mes-badge">온습도 센서</span>
+                        <span class="mes-badge">압력 센서</span>
+                        <span class="mes-badge">미세먼지 센서</span>
+                        <span class="mes-badge">MQTT 서버</span>
+                        <span class="mes-badge">Web 서버</span>
+                        <span class="mes-badge">PC 이력·트렌드 저장</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="counter-device-layout">
+                <div class="counter-device-photo sensor-network-photo">
+                    <img src="images/sensor-network.svg" alt="센서네트워크 구성도">
+                </div>
+                <div class="counter-device-panel" style="border-top-color:#06b6d4;">
+                    <h3>센서보드 기반 데이터 수집</h3>
+                    <p>현장 센서보드에서 온도, 습도, 압력, 미세먼지 데이터를 수집하고 MQTT 서버를 통해 Web 서버로 전달합니다. 관리자는 PC에서 이력과 트렌드를 저장·분석하고, 필요 시 휴대폰으로 실시간 알림을 받을 수 있습니다.</p>
+                    <div class="counter-spec-grid">
+                        <div class="counter-spec">
+                            <strong>수집 대상</strong>
+                            <span>온습도·압력·미세먼지</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>중계 방식</strong>
+                            <span>MQTT 서버 기반 메시지 전송</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>확인 채널</strong>
+                            <span>Web 화면·휴대폰 알림</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>저장 기능</strong>
+                            <span>PC 이력·트렌드 데이터 저장</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="counter-stat-band">
+                <div class="counter-stat" style="background: linear-gradient(135deg,#075985,#0891b2);">
+                    <b>MQTT</b>
+                    <span>센서 데이터를 안정적으로 중계하는 메시지 서버</span>
+                </div>
+                <div class="counter-stat" style="background: linear-gradient(135deg,#166534,#16a34a);">
+                    <b>Web</b>
+                    <span>브라우저 기반 실시간 모니터링 화면</span>
+                </div>
+                <div class="counter-stat" style="background: linear-gradient(135deg,#312e81,#4f46e5);">
+                    <b>Trend</b>
+                    <span>PC 이력 저장과 추이 분석으로 현장 변화 추적</span>
+                </div>
+            </div>
+
+            <div class="mes-workflow">
+                <h3>⚙️ 센서 데이터 흐름</h3>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#10b981,#059669);">
+                            <div class="workflow-step-icon">🌡️</div>
+                            <div class="workflow-step-name">센서 측정</div>
+                        </div>
+                        <div class="workflow-step-desc">온습도·압력<br>미세먼지 수집</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#0f766e,#14b8a6);">
+                            <div class="workflow-step-icon">🧩</div>
+                            <div class="workflow-step-name">센서보드 처리</div>
+                        </div>
+                        <div class="workflow-step-desc">신호 변환<br>데이터 패킷 생성</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#075985,#0284c7);">
+                            <div class="workflow-step-icon">📡</div>
+                            <div class="workflow-step-name">MQTT 전송</div>
+                        </div>
+                        <div class="workflow-step-desc">토픽별 발행<br>서버 구독 처리</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#2563eb,#3b82f6);">
+                            <div class="workflow-step-icon">🌐</div>
+                            <div class="workflow-step-name">Web 서버</div>
+                        </div>
+                        <div class="workflow-step-desc">실시간 화면<br>알림 조건 판단</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#7c3aed,#8b5cf6);">
+                            <div class="workflow-step-icon">💻</div>
+                            <div class="workflow-step-name">이력 저장</div>
+                        </div>
+                        <div class="workflow-step-desc">PC DB 저장<br>트렌드 분석</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size:1.4rem; color:#333; margin-bottom:1.5rem;">📂 주요 기능</h3>
+            <div class="mes-menu-grid">
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🌡️</span>
+                        <h4>복합 센서 수집</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">현장 환경 데이터를 센서보드에서 통합 수집</p>
+                    <ul class="mes-menu-items">
+                        <li>온도·습도 실시간 측정</li>
+                        <li>압력값 수집 및 범위 감시</li>
+                        <li>미세먼지 농도 모니터링</li>
+                        <li>센서별 보정값 및 임계값 관리</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📡</span>
+                        <h4>MQTT 통신</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">센서 데이터를 토픽 기반으로 서버에 안정적으로 전달</p>
+                    <ul class="mes-menu-items">
+                        <li>센서별 MQTT Topic 구성</li>
+                        <li>실시간 Publish / Subscribe 처리</li>
+                        <li>통신 장애 및 재연결 상태 확인</li>
+                        <li>Web 서버 연동 데이터 중계</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📱</span>
+                        <h4>휴대폰 전송</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">관리자가 현장 밖에서도 주요 상태와 경보를 확인</p>
+                    <ul class="mes-menu-items">
+                        <li>이상값 발생 시 모바일 알림</li>
+                        <li>실시간 센서 상태 조회</li>
+                        <li>장비별 경보 메시지 전송</li>
+                        <li>관리자 대응 이력 연계</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📈</span>
+                        <h4>PC 이력·트렌드 저장</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">누적 데이터를 저장해 현장 환경 변화를 분석</p>
+                    <ul class="mes-menu-items">
+                        <li>시간대별 센서 이력 저장</li>
+                        <li>온습도·압력·미세먼지 트렌드 차트</li>
+                        <li>임계값 초과 이력 조회</li>
+                        <li>보고서 및 데이터 출력 확장</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mes-features-summary" style="background: linear-gradient(135deg, #ecfeff 0%, #eff6ff 100%); border-color: #a5f3fc;">
+                <h3>✨ 적용 효과</h3>
+                <div class="mes-features-grid">
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📍</span>
+                        <span>현장 환경<br>상시 감시</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🚨</span>
+                        <span>이상 수치<br>즉시 알림</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📊</span>
+                        <span>데이터 기반<br>추이 분석</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🔌</span>
+                        <span>센서 종류별<br>확장 가능</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <button class="mes-back-btn" onclick="hideSensorNetworkDetail()">이전으로 돌아가기</button>
+            </div>
+        </div>
+
+        <!-- MES 상세 페이지 -->
+        <div id="mes-detail-view" class="mes-detail">
+            <button class="mes-back-btn" onclick="hideMesDetail()">이전으로 돌아가기</button>
+
+            <!-- 배너 -->
+            <div class="mes-hero-banner">
+                <div>
+                    <h2>🏭 MES · 생산관리시스템</h2>
+                    <p>제조 현장의 모든 프로세스를 실시간으로 통합 관리하는<br>스마트팩토리 핵심 솔루션</p>
+                    <div style="margin-top:1rem;">
+                        <span class="mes-badge">실시간 모니터링</span>
+                        <span class="mes-badge">생산 계획 최적화</span>
+                        <span class="mes-badge">품질 이력 추적</span>
+                        <span class="mes-badge">설비 통합 관리</span>
+                        <span class="mes-badge">Web 기반</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 작업흐름 -->
+            <div class="mes-workflow">
+                <h3>⚙️ 업무 흐름 (Work Flow)</h3>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="workflow-step-box">
+                            <div class="workflow-step-icon">📋</div>
+                            <div class="workflow-step-name">수주 관리</div>
+                        </div>
+                        <div class="workflow-step-desc">거래처 주문 접수<br>납기일 관리</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#f59e0b,#d97706);">
+                            <div class="workflow-step-icon">📅</div>
+                            <div class="workflow-step-name">생산 계획</div>
+                        </div>
+                        <div class="workflow-step-desc">생산 일정 수립<br>자재 소요 계획</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#10b981,#059669);">
+                            <div class="workflow-step-icon">⚙️</div>
+                            <div class="workflow-step-name">작업 지시</div>
+                        </div>
+                        <div class="workflow-step-desc">작업 배정<br>공정별 지시</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#3b82f6,#2563eb);">
+                            <div class="workflow-step-icon">🔧</div>
+                            <div class="workflow-step-name">생산 실적</div>
+                        </div>
+                        <div class="workflow-step-desc">실적 입력<br>진행률 추적</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#ef4444,#dc2626);">
+                            <div class="workflow-step-icon">🔍</div>
+                            <div class="workflow-step-name">품질 검사</div>
+                        </div>
+                        <div class="workflow-step-desc">검사 기준 적용<br>합격·불합격 판정</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#8b5cf6,#7c3aed);">
+                            <div class="workflow-step-icon">📊</div>
+                            <div class="workflow-step-name">현황 분석</div>
+                        </div>
+                        <div class="workflow-step-desc">KPI 대시보드<br>통계 리포트</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 메뉴 구조 -->
+            <h3 style="font-size:1.4rem; color:#333; margin-bottom:1.5rem;">📂 전체 메뉴 구성</h3>
+            <div class="mes-menu-grid">
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📊</span>
+                        <h4>현황 (Dashboard)</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">생산 현황을 한눈에 파악하는 실시간 대시보드</p>
+                    <ul class="mes-menu-items">
+                        <li>총 수주 현황</li>
+                        <li>진행 중 작업 현황</li>
+                        <li>완료 작업 현황</li>
+                        <li>재고 부족 자재 알림</li>
+                        <li>최근 수주 목록</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🗂️</span>
+                        <h4>기준정보</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">시스템 운영에 필요한 기본 마스터 데이터 관리</p>
+                    <ul class="mes-menu-items">
+                        <li>거래처 관리</li>
+                        <li>제품 관리</li>
+                        <li>자재 관리</li>
+                        <li>공정 관리</li>
+                        <li>설비 관리</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📋</span>
+                        <h4>영업 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">거래처 수주 접수부터 납기 관리까지</p>
+                    <ul class="mes-menu-items">
+                        <li>수주 등록 / 수정 / 삭제</li>
+                        <li>수주 상태 관리 (접수·확정·완료·취소)</li>
+                        <li>거래처별 수주 조회</li>
+                        <li>납기일 관리</li>
+                        <li>수주 금액 집계</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📅</span>
+                        <h4>생산 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">생산 계획 수립과 작업 지시 배정 관리</p>
+                    <ul class="mes-menu-items">
+                        <li>생산계획 등록 / 수정 / 삭제</li>
+                        <li>계획 상태 관리 (계획·진행·완료)</li>
+                        <li>작업지시 등록 / 수정 / 삭제</li>
+                        <li>공정별 작업 배정</li>
+                        <li>작업 진행률 추적</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🔍</span>
+                        <h4>품질 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">제품 품질 검사 이력 및 합격률 분석</p>
+                    <ul class="mes-menu-items">
+                        <li>품질검사 등록 / 조회</li>
+                        <li>검사 유형별 분류</li>
+                        <li>합격 / 불합격 판정</li>
+                        <li>합격률 시각화</li>
+                        <li>불량 원인 분석</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🔧</span>
+                        <h4>자재 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">자재 입고부터 재고 현황까지 통합 관리</p>
+                    <ul class="mes-menu-items">
+                        <li>자재 기준정보 등록</li>
+                        <li>재고 수량 관리</li>
+                        <li>재고 부족 알림</li>
+                        <li>자재 단가 관리</li>
+                        <li>자재별 사용 이력</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🏭</span>
+                        <h4>설비 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">생산 설비 현황 및 유지보수 이력 관리</p>
+                    <ul class="mes-menu-items">
+                        <li>설비 기준정보 등록</li>
+                        <li>설비 가동 상태 관리</li>
+                        <li>유지보수 일정 관리</li>
+                        <li>설비 이력 조회</li>
+                        <li>설비별 공정 연계</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">👥</span>
+                        <h4>거래처 / 제품 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">거래처 마스터 및 생산 제품 기준정보</p>
+                    <ul class="mes-menu-items">
+                        <li>거래처 등록 / 수정 / 삭제</li>
+                        <li>거래처 연락처 관리</li>
+                        <li>제품 등록 / 수정 / 삭제</li>
+                        <li>제품 단가 / 규격 관리</li>
+                        <li>제품별 수주 이력 연계</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- 주요 특징 -->
+            <div class="mes-features-summary">
+                <h3>✨ 주요 특징</h3>
+                <div class="mes-features-grid">
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🌐</span>
+                        <span>웹 브라우저 기반<br>어디서나 접속</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">⚡</span>
+                        <span>실시간 생산 현황<br>모니터링</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🔗</span>
+                        <span>수주→생산→품질<br>전 과정 연계</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📱</span>
+                        <span>모바일 반응형<br>UI 지원</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🔐</span>
+                        <span>JWT 인증 기반<br>보안 로그인</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📈</span>
+                        <span>KPI 통계 및<br>리포트 제공</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mes-screen-example">
+                <h3>&#128444; &#54868;&#47732;&#50696;&#49884;</h3>
+                <div class="mes-screen-example-frame">
+                    <img src="images/mes-screen-example.svg" alt="MES &#54868;&#47732;&#50696;&#49884;">
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <button class="mes-back-btn" onclick="hideMesDetail()">이전으로 돌아가기</button>
+            </div>
+        </div>
+
+        <!-- 전력관리솔루션 상세 페이지 -->
+        <div id="power-detail-view" class="mes-detail">
+            <button class="mes-back-btn" onclick="hidePowerDetail()">이전으로 돌아가기</button>
+
+            <!-- 배너 -->
+            <div class="mes-hero-banner" style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);">
+                <div>
+                    <h2>⚡ 전력관리솔루션</h2>
+                    <p>산업 현장 설비의 전력 사용량을 실시간으로 계측·분석하는<br>탄소중립 전력계량관리 통합 솔루션</p>
+                    <div style="margin-top:1rem;">
+                        <span class="mes-badge">실시간 전력 계측</span>
+                        <span class="mes-badge">R/S/T 3상 모니터링</span>
+                        <span class="mes-badge">설비별 가동 현황</span>
+                        <span class="mes-badge">경보 관리</span>
+                        <span class="mes-badge">Web 기반</span>
+                        <span class="mes-badge">탄소중립 대응</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 작업흐름 -->
+            <div class="mes-workflow">
+                <h3>⚙️ 업무 흐름 (Work Flow)</h3>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#0f2027,#2c5364);">
+                            <div class="workflow-step-icon">🏭</div>
+                            <div class="workflow-step-name">설비 등록</div>
+                        </div>
+                        <div class="workflow-step-desc">설비 기준정보<br>계측기 연결 설정</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#f59e0b,#d97706);">
+                            <div class="workflow-step-icon">⚡</div>
+                            <div class="workflow-step-name">실시간 계측</div>
+                        </div>
+                        <div class="workflow-step-desc">3상 전압·전류·전력<br>실시간 수집</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#10b981,#059669);">
+                            <div class="workflow-step-icon">📊</div>
+                            <div class="workflow-step-name">현황 분석</div>
+                        </div>
+                        <div class="workflow-step-desc">설비별 전력 비교<br>일·주·월 트렌드</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#3b82f6,#2563eb);">
+                            <div class="workflow-step-icon">🔧</div>
+                            <div class="workflow-step-name">가동 관리</div>
+                        </div>
+                        <div class="workflow-step-desc">설비 가동·대기·정지<br>상태 추적</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#ef4444,#dc2626);">
+                            <div class="workflow-step-icon">🚨</div>
+                            <div class="workflow-step-name">경보 관리</div>
+                        </div>
+                        <div class="workflow-step-desc">임계값 초과 감지<br>알림 발송</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#8b5cf6,#7c3aed);">
+                            <div class="workflow-step-icon">📈</div>
+                            <div class="workflow-step-name">리포트</div>
+                        </div>
+                        <div class="workflow-step-desc">전력비용 분석<br>탄소배출 리포트</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 메뉴 구조 -->
+            <h3 style="font-size:1.4rem; color:#333; margin-bottom:1.5rem;">📂 전체 메뉴 구성</h3>
+            <div class="mes-menu-grid">
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📊</span>
+                        <h4>대시보드</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">전체 설비 현황을 한눈에 보는 실시간 대시보드</p>
+                    <ul class="mes-menu-items">
+                        <li>설비 가동 통계 (가동·대기·정지·전원OFF)</li>
+                        <li>OEE 설비가동효율 게이지</li>
+                        <li>전력 사용량 라인 차트</li>
+                        <li>설비별 현황 목록</li>
+                        <li>최종 업데이트 시각 표시</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📡</span>
+                        <h4>실시간 현황</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">설비 이미지·CCTV·3상 전기파라미터 실시간 표시</p>
+                    <ul class="mes-menu-items">
+                        <li>설비 이미지 & CCTV 스트림</li>
+                        <li>시간별 전력 사용량 차트 (일간/주간/당월)</li>
+                        <li>전력 사용량 비교 바 (오늘/전일/전주/전월)</li>
+                        <li>R·S·T 3상 전압·전류·전력·에너지·역률</li>
+                        <li>전기품질파라미터 (주파수·EP·EQ·ES)</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🏭</span>
+                        <h4>설비별 현황</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">설비별 전력 사용량 비교 및 월별 트렌드 분석</p>
+                    <ul class="mes-menu-items">
+                        <li>설비 선택 필터 (전체/개별)</li>
+                        <li>월별 가동률 라인 차트</li>
+                        <li>설비별 전력 사용량 Bar 차트</li>
+                        <li>가동률·달성률 현황</li>
+                        <li>설비간 전력 비교 분석</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">⚙️</span>
+                        <h4>설비 가동 현황</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">현장 설비의 가동·대기·정지 상태를 실시간 추적</p>
+                    <ul class="mes-menu-items">
+                        <li>설비 가동 상태 실시간 표시</li>
+                        <li>가동시간 / 비가동시간 집계</li>
+                        <li>상태별 필터링 조회</li>
+                        <li>설비 운전 이력 조회</li>
+                        <li>가동률 추이 분석</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🔍</span>
+                        <h4>설비 상세 현황</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">설비별 상세 정보 및 계측 데이터 조회</p>
+                    <ul class="mes-menu-items">
+                        <li>설비 기본정보 (제조사·모델·설치일·위치)</li>
+                        <li>담당자 정보</li>
+                        <li>설비 이미지 표시</li>
+                        <li>전력 상세 계측값 조회</li>
+                        <li>정비 이력 연계</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🚨</span>
+                        <h4>경보 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">전력 임계값 초과 시 자동 경보 발생 및 이력 관리</p>
+                    <ul class="mes-menu-items">
+                        <li>경보 임계값 설정</li>
+                        <li>실시간 경보 발생 알림</li>
+                        <li>경보 확인 / 해제 처리</li>
+                        <li>경보 이력 조회</li>
+                        <li>경보 카테고리·레벨 분류</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">👥</span>
+                        <h4>기준정보 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">시스템 운영에 필요한 사용자·메뉴·설비 기준 관리</p>
+                    <ul class="mes-menu-items">
+                        <li>사용자 등록 / 권한 관리</li>
+                        <li>메뉴 구성 관리</li>
+                        <li>설비 기준정보 등록</li>
+                        <li>계측기 연결 설정</li>
+                        <li>알림 수신자 설정</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🌿</span>
+                        <h4>탄소중립 리포트</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">전력 사용량 기반 탄소배출량 산정 및 리포트 제공</p>
+                    <ul class="mes-menu-items">
+                        <li>설비별 전력 소비 집계</li>
+                        <li>탄소배출량 환산 계산</li>
+                        <li>기간별 비교 리포트</li>
+                        <li>전력비용 분석</li>
+                        <li>에너지 절감 목표 관리</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- 주요 특징 -->
+            <div class="mes-features-summary">
+                <h3>✨ 주요 특징</h3>
+                <div class="mes-features-grid">
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">⚡</span>
+                        <span>R·S·T 3상<br>실시간 계측</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🌐</span>
+                        <span>웹 브라우저 기반<br>원격 접속</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📹</span>
+                        <span>CCTV 스트림<br>연동 지원</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🚨</span>
+                        <span>임계값 초과<br>자동 경보</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🌿</span>
+                        <span>탄소중립<br>배출량 리포트</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📱</span>
+                        <span>모바일 반응형<br>UI 지원</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mes-screen-example">
+                <h3>&#128444; &#54868;&#47732;&#50696;&#49884;</h3>
+                <div class="mes-screen-example-frame">
+                    <img src="images/power-screen-example.svg" alt="&#51204;&#47141;&#49556;&#47336;&#49496; &#54868;&#47732;&#50696;&#49884;">
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <button class="mes-back-btn" onclick="hidePowerDetail()">이전으로 돌아가기</button>
+            </div>
+        </div>
+
+        <!-- 산업안전관리솔루션 상세 페이지 -->
+        <div id="safety-detail-view" class="mes-detail">
+            <button class="mes-back-btn" onclick="hideSafetyDetail()">이전으로 돌아가기</button>
+
+            <!-- 배너 -->
+            <div class="mes-hero-banner" style="background: linear-gradient(135deg, #0a2e1a 0%, #1a4731 50%, #155724 100%);">
+                <div>
+                    <h2>🛡️ 산업안전관리 솔루션</h2>
+                    <p>AI 영상분석·BLE 위치추적·가스 누출 감지를 통합한<br>스마트 사업장 안전관리 솔루션</p>
+                    <div style="margin-top:1rem;">
+                        <span class="mes-badge">AI 안전장구 감지</span>
+                        <span class="mes-badge">지게차·크레인 근접 경보</span>
+                        <span class="mes-badge">가스 누출 센서</span>
+                        <span class="mes-badge">BLE 작업자 위치추적</span>
+                        <span class="mes-badge">비상 SOP 연동</span>
+                        <span class="mes-badge">Web 기반</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 작업흐름 -->
+            <div class="mes-workflow">
+                <h3>⚙️ 업무 흐름 (Work Flow)</h3>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#0a2e1a,#155724);">
+                            <div class="workflow-step-icon">👷</div>
+                            <div class="workflow-step-name">작업자 등록</div>
+                        </div>
+                        <div class="workflow-step-desc">작업자·관리자<br>기준정보 등록</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#f59e0b,#d97706);">
+                            <div class="workflow-step-icon">📡</div>
+                            <div class="workflow-step-name">현장 감지</div>
+                        </div>
+                        <div class="workflow-step-desc">BLE Beacon<br>출입·위치 추적</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#10b981,#059669);">
+                            <div class="workflow-step-icon">🤖</div>
+                            <div class="workflow-step-name">AI 영상분석</div>
+                        </div>
+                        <div class="workflow-step-desc">YOLOv8 기반<br>안전장구 감지</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#3b82f6,#2563eb);">
+                            <div class="workflow-step-icon">⚠️</div>
+                            <div class="workflow-step-name">이상 감지</div>
+                        </div>
+                        <div class="workflow-step-desc">가스 누출·화재<br>근접 위험 감지</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#ef4444,#dc2626);">
+                            <div class="workflow-step-icon">🚨</div>
+                            <div class="workflow-step-name">경보 발생</div>
+                        </div>
+                        <div class="workflow-step-desc">실시간 알림<br>관리자 즉시 통보</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-box" style="background: linear-gradient(135deg,#8b5cf6,#7c3aed);">
+                            <div class="workflow-step-icon">📋</div>
+                            <div class="workflow-step-name">비상 대응</div>
+                        </div>
+                        <div class="workflow-step-desc">SOP 기반<br>단계별 조치</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 메뉴 구조 -->
+            <h3 style="font-size:1.4rem; color:#333; margin-bottom:1.5rem;">📂 전체 메뉴 구성</h3>
+            <div class="mes-menu-grid">
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📊</span>
+                        <h4>대시보드</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">현장 안전 현황을 한눈에 파악하는 실시간 대시보드</p>
+                    <ul class="mes-menu-items">
+                        <li>출근 작업자 현황</li>
+                        <li>실시간 경보 알림 현황</li>
+                        <li>CCTV 스트림 모니터링</li>
+                        <li>감지 이벤트 최근 목록</li>
+                        <li>설비 가동 상태 요약</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">👷</span>
+                        <h4>작업자 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">현장 작업자 및 관리자 계정의 등록·관리</p>
+                    <ul class="mes-menu-items">
+                        <li>작업자 등록 / 수정 / 삭제</li>
+                        <li>작업 분야별 분류 관리</li>
+                        <li>출입 이력 조회</li>
+                        <li>관리자 계정 등록 및 권한 설정</li>
+                        <li>작업자별 Beacon 장비 연계</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🤖</span>
+                        <h4>CCTV · AI 감시</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">YOLOv8 기반 AI 영상 분석으로 안전장구 미착용 실시간 감지</p>
+                    <ul class="mes-menu-items">
+                        <li>CCTV 실시간 스트림 관리</li>
+                        <li>안전모·안전조끼 착용 감지</li>
+                        <li>화재·폭발 영상 감지</li>
+                        <li>감지 이벤트 자동 저장</li>
+                        <li>카메라 구역별 관리</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">💨</span>
+                        <h4>가스 누출 센서 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">유해가스 감지 센서 실시간 모니터링 및 경보 관리</p>
+                    <ul class="mes-menu-items">
+                        <li>센서 등록 / 위치 설정</li>
+                        <li>실시간 가스 농도 수치 표시</li>
+                        <li>임계값 초과 시 자동 경보</li>
+                        <li>센서 이상 여부 진단</li>
+                        <li>가스 누출 이력 조회</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🚧</span>
+                        <h4>근접 알림 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">지게차·크레인 등 중장비와 작업자 근접 위험 실시간 감지</p>
+                    <ul class="mes-menu-items">
+                        <li>근접 감지 구역 설정</li>
+                        <li>작업자-장비 거리 실시간 추적</li>
+                        <li>근접 경보 발생 및 알림</li>
+                        <li>근접 이벤트 이력 조회</li>
+                        <li>경보 임계 거리 설정</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📡</span>
+                        <h4>BLE Beacon · Gateway 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">BLE 비콘 기반 작업자 실내 위치 추적 및 출입 관리</p>
+                    <ul class="mes-menu-items">
+                        <li>Beacon 등록 / 구역 매핑</li>
+                        <li>Gateway 장치 등록·연결 상태 확인</li>
+                        <li>작업자 실시간 위치 추적</li>
+                        <li>구역 출입 이력 자동 기록</li>
+                        <li>Beacon 배터리 및 신호 상태 관리</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">🚨</span>
+                        <h4>비상 상황 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">SOP(표준운영절차) 기반 비상 상황 발생·대응·완료 전 과정 관리</p>
+                    <ul class="mes-menu-items">
+                        <li>비상 유형별 SOP 등록 관리</li>
+                        <li>비상 상황 발생 등록</li>
+                        <li>단계별 조치 현황 추적</li>
+                        <li>비상 상황 기록 이력 조회</li>
+                        <li>긴급 PDF 문서 업로드 관리</li>
+                    </ul>
+                </div>
+
+                <div class="mes-menu-card">
+                    <div class="mes-menu-card-header">
+                        <span class="mes-menu-card-icon">📋</span>
+                        <h4>감시 기록 · 로그 관리</h4>
+                    </div>
+                    <p class="mes-menu-card-desc">모든 감지 이벤트와 시스템 로그의 통합 이력 관리</p>
+                    <ul class="mes-menu-items">
+                        <li>감시 유형별 필터 조회 (안전장구·화재·가스)</li>
+                        <li>심각도·상태별 분류 관리</li>
+                        <li>이벤트 확인·해결 처리</li>
+                        <li>시스템 로그 전체 이력 조회</li>
+                        <li>이벤트 통계 리포트</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- 주요 특징 -->
+            <div class="mes-features-summary" style="background: linear-gradient(135deg, #f0faf4 0%, #e6f7ed 100%); border-color: #c3e6cb;">
+                <h3>✨ 주요 특징</h3>
+                <div class="mes-features-grid">
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🤖</span>
+                        <span>YOLOv8 AI<br>안전장구 감지</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📡</span>
+                        <span>BLE Beacon<br>실내 위치 추적</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">💨</span>
+                        <span>유해가스 센서<br>실시간 모니터링</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🚧</span>
+                        <span>지게차·크레인<br>근접 경보</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📋</span>
+                        <span>SOP 기반<br>비상 대응 체계</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🌐</span>
+                        <span>웹 브라우저 기반<br>원격 접속</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mes-screen-example">
+                <h3>&#128444; &#54868;&#47732;&#50696;&#49884;</h3>
+                <div class="mes-screen-example-frame">
+                    <img src="images/safety-screen-example.svg" alt="&#49328;&#50629;&#50504;&#51204;&#44288;&#47532;&#49556;&#47336;&#49496; &#54868;&#47732;&#50696;&#49884;">
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <button class="mes-back-btn" onclick="hideSafetyDetail()">이전으로 돌아가기</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+        <div class="benefits-container">
+            <h2 class="section-title">솔루션개발</h2>
+            <div class="benefit-items">
+                <div class="benefit-item" style="cursor:pointer;" onclick="launchMesSystem()">
+                    <div class="icon">🏭</div>
+                    <h4>MES</h4>
+                    <p>Smart factory를 위한 MES솔루션</p>
+                    <div style="margin-top:1rem; color:#667eea; font-size:0.9rem; font-weight:600;">🚀 시스템 실행 →</div>
+                </div>
+                <div class="benefit-item" style="cursor:pointer;" onclick="launchPowerSystem()">
+                    <div class="icon">⚡</div>
+                    <h4>전력 관리 솔루션</h4>
+                    <p>산업용 설비 전력사용량관리 솔루션</p>
+                    <div style="margin-top:1rem; color:#e67e00; font-size:0.9rem; font-weight:600;">🚀 시스템 실행 →</div>
+                </div>
+                <div class="benefit-item" style="cursor:pointer;" onclick="launchSafetySystem()">
+                    <div class="icon">🛡️</div>
+                    <h4>산업안전관리 솔루션</h4>
+                    <p>현장 출입 안전장구 착용감지, 지게차 안전감지, 크레인 근접감지솔루션</p>
+                    <div style="margin-top:1rem; color:#28a745; font-size:0.9rem; font-weight:600;">🚀 시스템 실행 →</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="inquiry" id="inquiry">
+        <h2 class="section-title">1:1 문의사항</h2>
+        <div class="inquiry-form">
+            <input type="text" id="inquiry-title" placeholder="문의 제목을 입력해주세요" required>
+            <textarea id="inquiry-content" placeholder="문의 내용을 자세히 적어주세요" required></textarea>
+            <label class="inquiry-agreement">
+                <input type="checkbox" id="inquiry-agree"> 개인정보 수집 및 이용에 동의합니다.
+            </label>
+            <button class="inquiry-submit" onclick="submitInquiry()">문의하기</button>
+        </div>
+    </section>
+
+    <section class="location" id="location">
+        <h2 class="section-title">찾아오시는 길</h2>
+        <div class="map-container">
+            <iframe src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EB%B4%89%EC%9D%80%EC%82%AC%EB%A1%9C67%EA%B8%B8%2046&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="location-info">
+            <p><strong>주소:</strong> 서울 강남구 봉은사로 67길 46 로얄빌</p>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>엠지솔루션 닷컴</h3>
+                <p>신뢰와 혁신으로<br>내일을 앞서갑니다</p>
+            </div>
+            <div class="footer-section">
+                <h3>바로가기</h3>
+                <a href="#programs">주요솔루션</a>
+                <a href="#benefits">지원혜택</a>
+                <a href="#inquiry">문의사항</a>
+                <a href="#location">찾아오시는길</a>
+            </div>
+            <div class="footer-section">
+                <h3>문의</h3>
+                <p>📱 010-3030-0495</p>
+                <p>✉️ venturs@naver.com</p>
+                <p>🏢 강남구봉은사로67길46</p>
+            </div>
+            <div class="footer-section">
+                <h3>운영시간</h3>
+                <p>평일: 09:00 - 18:00</p>
+                <p>점심: 12:00 - 13:00</p>
+                <p>주말 및 공휴일 휴무</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 엠지솔루션 닷컴. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 산업안전관리 시스템 실행 모달 -->
+    <div class="launch-modal-overlay" id="launchModal">
+        <div class="launch-modal">
+            <div class="launch-modal-icon">🛡️</div>
+            <h3>산업안전관리 시스템</h3>
+            <p id="launchModalMsg">시스템을 시작하고 있습니다.<br>잠시만 기다려 주세요...</p>
+            <div class="launch-spinner" id="launchSpinner"></div>
+            <div class="launch-progress">
+                <div class="launch-progress-bar" id="launchProgressBar"></div>
+            </div>
+            <div class="launch-status" id="launchStatus">서버 초기화 중...</div>
+            <a id="launchProtocolBtn" href="#" target="_self" style="display:none; margin-bottom:0.5rem; padding:0.6rem 1.2rem; background:#e67e00; color:white; border-radius:8px; text-decoration:none; font-weight:600; font-size:0.9rem;">
+                ▶ 시스템 직접 시작
+            </a>
+            <a href="#" target="_blank" class="launch-open-btn" id="launchOpenBtn" style="display:none;">
+                🚀 시스템 열기
+            </a>
+            <button class="launch-close-btn" onclick="closeLaunchModal()">닫기</button>
+        </div>
+    </div>
+
+    <script>
+        // ZIP 파일 다운로드 함수
+        async function downloadWebsite() {
+            try {
+                const zip = new JSZip();
+                
+                // 현재 HTML 내용 가져오기
+                const htmlContent = document.documentElement.outerHTML;
+                
+                // index.html 파일 추가
+                zip.file("index.html", htmlContent);
+                
+                // README.md 파일 생성
+                const readmeContent = `# 기술개발 프로그램 홈페이지
+
+## 📋 설치 및 실행 방법
+
+1. 다운로드한 ZIP 파일의 압축을 원하는 위치에 풀어주세요.
+   예: d:\\myproject\\homepage\\
+
+2. index.html 파일을 웹 브라우저(Chrome, Edge, Firefox 등)로 열어주세요.
+
+## 📁 파일 구조
+
+\`\`\`
+homepage/
+├── index.html          # 메인 홈페이지 (HTML + CSS + JavaScript 통합)
+├── README.md          # 이 파일
+└── images/            # 이미지 파일을 추가할 수 있는 폴더
+    └── README.txt
+\`\`\`
+
+## ✏️ 수정 방법
+
+### 텍스트 내용 수정
+- index.html 파일을 텍스트 에디터(VS Code, Notepad++, 메모장 등)로 열기
+- HTML 본문에서 원하는 텍스트를 찾아서 수정
+- 파일 저장 후 브라우저에서 새로고침
+
+### 디자인(색상, 폰트 등) 수정
+- index.html 파일 상단의 \`<style>\` 태그 내부 CSS 코드 수정
+- 색상 코드, 폰트 크기, 여백 등을 원하는 대로 변경
+
+### 기능 추가/수정
+- index.html 파일 하단의 \`&lt;script&gt;\` 태그 내부 JavaScript 코드 수정
+
+## ✨ 주요 기능
+
+- ✅ 반응형 디자인 (모바일, 태블릿, PC 모두 지원)
+- ✅ 부드러운 스크롤 애니메이션
+- ✅ 프로그램 카드 호버 효과
+- ✅ 6가지 주요 기술개발 프로그램 소개
+- ✅ 지원 혜택 안내
+- ✅ 신청 절차 가이드
+- ✅ 연락처 정보
+
+## 🛠️ 기술 스택
+
+- HTML5
+- CSS3 (Flexbox, Grid, Animations)
+- JavaScript (Vanilla JS)
+- JSZip (ZIP 파일 생성)
+- FileSaver.js (파일 다운로드)
+
+## 📞 문의
+
+TechDev Korea
+- 전화: 02-1234-5678
+- 이메일: info@techdev.kr
+- 주소: 서울시 강남구 테헤란로 123
+
+---
+© 2025 TechDev Korea. All rights reserved.`;
+                
+                zip.file("README.md", readmeContent);
+                
+                // images 폴더와 안내 파일 추가
+                const imagesFolder = zip.folder("images");
+                const imageReadme = `이미지 파일 추가 방법
+==================
+
+이 폴더에 이미지 파일을 추가하고 index.html에서 다음과 같이 사용할 수 있습니다:
+
+<img src="images/your-image.jpg" alt="설명">
+
+지원하는 이미지 형식:
+- JPG/JPEG
+- PNG
+- GIF
+- SVG
+- WebP
+
+권장 사항:
+- 웹용 이미지는 적절한 크기로 최적화하세요
+- 파일명은 영문과 숫자만 사용하세요
+- 공백 대신 하이픈(-)이나 언더스코어(_)를 사용하세요`;
+                
+                imagesFolder.file("README.txt", imageReadme);
+                
+                // ZIP 파일 생성
+                const content = await zip.generateAsync({
+                    type: "blob",
+                    compression: "DEFLATE",
+                    compressionOptions: {
+                        level: 9
+                    }
+                });
+                
+                // 파일 다운로드
+                saveAs(content, "techdev-homepage.zip");
+                
+                // 성공 메시지
+                alert("✅ 홈페이지가 성공적으로 다운로드되었습니다!\n\n다운로드 내용:\n- index.html (메인 홈페이지)\n- README.md (사용 설명서)\n- images/ 폴더\n\nZIP 파일의 압축을 풀고 index.html을 브라우저로 열어주세요.");
+                
+            } catch (error) {
+                console.error("다운로드 오류:", error);
+                alert("❌ 다운로드 중 오류가 발생했습니다.\n\n" + error.message + "\n\n다시 시도해주세요.");
+            }
+        }
+
+        // 서버 응답 확인 (폴링)
+        async function waitForServer(url, maxWaitSec) {
+            const start = Date.now();
+            while ((Date.now() - start) < maxWaitSec * 1000) {
+                try {
+                    await fetch(url, { mode: 'no-cors', cache: 'no-store' });
+                    return true; // 응답 성공
+                } catch(e) {
+                    // 아직 미응답 - 2초 후 재시도
+                    await new Promise(r => setTimeout(r, 2000));
+                }
+            }
+            return false; // 타임아웃
+        }
+
+        // 커스텀 프로토콜로 bat 파일 실행
+        function triggerProtocol(protocol) {
+            const link = document.createElement('a');
+            link.href = protocol;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // 공통 모달 설정
+        function openLaunchModal(icon, title, color, targetUrl, protocol) {
+            const modal       = document.getElementById('launchModal');
+            const bar         = document.getElementById('launchProgressBar');
+            const statusEl    = document.getElementById('launchStatus');
+            const spinner     = document.getElementById('launchSpinner');
+            const openBtn     = document.getElementById('launchOpenBtn');
+            const protoBtn    = document.getElementById('launchProtocolBtn');
+            const msgEl       = document.getElementById('launchModalMsg');
+            modal.querySelector('.launch-modal-icon').textContent = icon;
+            modal.querySelector('h3').textContent  = title;
+            modal.querySelector('h3').style.color  = color;
+            bar.style.width        = '0%';
+            bar.style.background   = '';
+            spinner.style.display  = 'block';
+            openBtn.style.display  = 'none';
+            openBtn.href           = targetUrl;
+            msgEl.textContent      = '시스템을 시작하고 있습니다.\n잠시만 기다려 주세요...';
+            statusEl.textContent   = '서버 초기화 중...';
+            if (protocol) {
+                protoBtn.href          = protocol;
+                protoBtn.style.display = 'inline-block';
+            } else {
+                protoBtn.style.display = 'none';
+            }
+            modal.classList.add('active');
+            return { bar, statusEl, spinner, openBtn, msgEl };
+        }
+
+        // 산업안전관리 시스템 실행
+        async function launchSafetySystem() {
+            const TARGET = 'http://localhost:3000';
+            const { bar, statusEl, spinner, openBtn, msgEl } =
+                openLaunchModal('🛡️', '산업안전관리 시스템', '#155724', TARGET, 'saftymgr://');
+
+            triggerProtocol('saftymgr://');
+
+            const msgs = [
+                [10, 'MQTT Broker 시작 중...'],
+                [30, 'Safety Admin 서버 기동 중...'],
+                [55, 'Next.js 앱 컴파일 중...'],
+                [75, '데이터베이스 연결 중...'],
+            ];
+            msgs.forEach(([pct, msg], i) => {
+                setTimeout(() => { bar.style.width = pct + '%'; statusEl.textContent = msg; },
+                    (i + 1) * 3500);
+            });
+
+            // 실제 서버 응답 대기 (최대 90초)
+            statusEl.textContent = '서버 응답 대기 중...';
+            const ok = await waitForServer(TARGET, 180);
+            bar.style.width = '100%';
+            spinner.style.display = 'none';
+            if (ok) {
+                msgEl.textContent    = '시스템이 준비되었습니다!';
+                statusEl.textContent = '연결 성공 ✓';
+                openBtn.style.display = 'inline-block';
+                window.open(TARGET, '_blank');
+            } else {
+                msgEl.textContent    = '서버 응답이 없습니다.\n직접 열기 버튼을 눌러주세요.';
+                statusEl.textContent = '수동으로 확인하세요';
+                openBtn.style.display = 'inline-block';
+            }
+        }
+
+        function closeLaunchModal() {
+            document.getElementById('launchModal').classList.remove('active');
+        }
+
+        // 전력관리 시스템 실행
+        async function launchPowerSystem() {
+            const TARGET = 'http://localhost:2000';
+            const { bar, statusEl, spinner, openBtn, msgEl } =
+                openLaunchModal('⚡', '전력관리 시스템', '#0f3460', TARGET, 'powermgr://');
+
+            triggerProtocol('powermgr://');
+
+            const msgs = [
+                [15, 'Express 서버 시작 중...'],
+                [40, 'Vite 클라이언트 빌드 중...'],
+                [65, '데이터베이스 연결 중...'],
+                [80, '전력 계측 모듈 초기화 중...'],
+            ];
+            msgs.forEach(([pct, msg], i) => {
+                setTimeout(() => { bar.style.width = pct + '%'; statusEl.textContent = msg; },
+                    (i + 1) * 3000);
+            });
+
+            statusEl.textContent = '서버 응답 대기 중...';
+            const ok = await waitForServer(TARGET, 180);
+            bar.style.width = '100%';
+            spinner.style.display = 'none';
+            if (ok) {
+                msgEl.textContent    = '시스템이 준비되었습니다!';
+                statusEl.textContent = '연결 성공 ✓';
+                openBtn.style.display = 'inline-block';
+                openBtn.style.background = 'linear-gradient(135deg, #0f3460, #2c5364)';
+                window.open(TARGET, '_blank');
+            } else {
+                msgEl.textContent    = '서버 응답이 없습니다.\n직접 열기 버튼을 눌러주세요.';
+                statusEl.textContent = '수동으로 확인하세요';
+                openBtn.style.display = 'inline-block';
+                openBtn.style.background = 'linear-gradient(135deg, #0f3460, #2c5364)';
+            }
+        }
+
+        // MES 시스템 실행
+        async function launchMesSystem() {
+            const TARGET = 'http://localhost:1000';
+            const { bar, statusEl, spinner, openBtn, msgEl } =
+                openLaunchModal('🏭', 'MES 생산관리 시스템', '#1a3c5e', TARGET, 'mes://');
+
+            triggerProtocol('mes://');
+
+            const msgs = [
+                [15, 'MES 서버 시작 중...'],
+                [40, 'React 클라이언트 빌드 중...'],
+                [65, '데이터베이스 연결 중...'],
+                [80, '생산 모듈 초기화 중...'],
+            ];
+            msgs.forEach(([pct, msg], i) => {
+                setTimeout(() => { bar.style.width = pct + '%'; statusEl.textContent = msg; },
+                    (i + 1) * 3500);
+            });
+
+            statusEl.textContent = '서버 응답 대기 중...';
+            const ok = await waitForServer(TARGET, 180);
+            bar.style.width = '100%';
+            spinner.style.display = 'none';
+            if (ok) {
+                msgEl.textContent    = '시스템이 준비되었습니다!';
+                statusEl.textContent = '연결 성공 ✓';
+                openBtn.style.display = 'inline-block';
+                openBtn.style.background = 'linear-gradient(135deg, #1a3c5e, #2e6da4)';
+                window.open(TARGET, '_blank');
+            } else {
+                msgEl.textContent    = '서버 응답이 없습니다.\n직접 열기 버튼을 눌러주세요.';
+                statusEl.textContent = '수동으로 확인하세요';
+                openBtn.style.display = 'inline-block';
+                openBtn.style.background = 'linear-gradient(135deg, #1a3c5e, #2e6da4)';
+            }
+        }
+
+        // MES 상세 보기 / 숨기기
+        function showMesDetail() {
+            document.getElementById('programs-grid-view').style.display = 'none';
+            document.getElementById('counter-detail-view').classList.remove('active');
+            pauseCounterVideo();
+            document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('power-detail-view').classList.remove('active');
+            document.getElementById('safety-detail-view').classList.remove('active');
+            const detail = document.getElementById('mes-detail-view');
+            detail.classList.add('active');
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showCounterDetail() {
+            document.getElementById('programs-grid-view').style.display = 'none';
+            document.getElementById('mes-detail-view').classList.remove('active');
+            document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('power-detail-view').classList.remove('active');
+            document.getElementById('safety-detail-view').classList.remove('active');
+            document.getElementById('counter-detail-view').classList.add('active');
+            playCounterVideo();
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function hideCounterDetail() {
+            document.getElementById('counter-detail-view').classList.remove('active');
+            pauseCounterVideo();
+            document.getElementById('programs-grid-view').style.display = 'block';
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function playCounterVideo() {
+            const video = document.querySelector('#counter-detail-view .counter-device-photo video');
+            if (!video) return;
+
+            video.loop = true;
+            video.muted = true;
+            video.playsInline = true;
+            const playPromise = video.play();
+            if (playPromise && typeof playPromise.catch === 'function') {
+                playPromise.catch(() => {});
+            }
+        }
+
+        function pauseCounterVideo() {
+            const video = document.querySelector('#counter-detail-view .counter-device-photo video');
+            if (!video) return;
+
+            video.pause();
+        }
+
+        function showSensorNetworkDetail() {
+            document.getElementById('programs-grid-view').style.display = 'none';
+            document.getElementById('mes-detail-view').classList.remove('active');
+            document.getElementById('counter-detail-view').classList.remove('active');
+            pauseCounterVideo();
+            document.getElementById('power-detail-view').classList.remove('active');
+            document.getElementById('safety-detail-view').classList.remove('active');
+            document.getElementById('sensor-network-detail-view').classList.add('active');
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function hideSensorNetworkDetail() {
+            document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('programs-grid-view').style.display = 'block';
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showPowerDetail() {
+            document.getElementById('programs-grid-view').style.display = 'none';
+            document.getElementById('mes-detail-view').classList.remove('active');
+            document.getElementById('counter-detail-view').classList.remove('active');
+            pauseCounterVideo();
+            document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('safety-detail-view').classList.remove('active');
+            document.getElementById('power-detail-view').classList.add('active');
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showPowerDetailFromBenefits() {
+            document.getElementById('programs-grid-view').style.display = 'none';
+            document.getElementById('mes-detail-view').classList.remove('active');
+            document.getElementById('counter-detail-view').classList.remove('active');
+            pauseCounterVideo();
+            document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('safety-detail-view').classList.remove('active');
+            document.getElementById('power-detail-view').classList.add('active');
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function hidePowerDetail() {
+            document.getElementById('power-detail-view').classList.remove('active');
+            document.getElementById('programs-grid-view').style.display = 'block';
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showMesDetailFromBenefits() {
+            document.getElementById('programs-grid-view').style.display = 'none';
+            document.getElementById('counter-detail-view').classList.remove('active');
+            pauseCounterVideo();
+            document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('power-detail-view').classList.remove('active');
+            document.getElementById('safety-detail-view').classList.remove('active');
+            document.getElementById('mes-detail-view').classList.add('active');
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function hideMesDetail() {
+            document.getElementById('mes-detail-view').classList.remove('active');
+            document.getElementById('programs-grid-view').style.display = 'block';
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showSafetyDetail() {
+            document.getElementById('programs-grid-view').style.display = 'none';
+            document.getElementById('mes-detail-view').classList.remove('active');
+            document.getElementById('counter-detail-view').classList.remove('active');
+            pauseCounterVideo();
+            document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('power-detail-view').classList.remove('active');
+            document.getElementById('safety-detail-view').classList.add('active');
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function hideSafetyDetail() {
+            document.getElementById('safety-detail-view').classList.remove('active');
+            document.getElementById('programs-grid-view').style.display = 'block';
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showSafetyDetailFromBenefits() {
+            document.getElementById('programs-grid-view').style.display = 'none';
+            document.getElementById('mes-detail-view').classList.remove('active');
+            document.getElementById('counter-detail-view').classList.remove('active');
+            pauseCounterVideo();
+            document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('power-detail-view').classList.remove('active');
+            document.getElementById('safety-detail-view').classList.add('active');
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 스크롤 시 헤더 스타일 변경
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(20, 30, 50, 0.95)';
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+            } else {
+                header.style.background = 'transparent';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // 카드 애니메이션
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.program-card, .benefit-item').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // 문의하기 버튼 클릭 로직
+        function submitInquiry() {
+            const agree = document.getElementById('inquiry-agree').checked;
+            if (!agree) {
+                alert('개인정보수집동의를 하여야만 문의하실수있습니다');
+                return;
+            }
+            
+            const title = document.getElementById('inquiry-title').value;
+            const content = document.getElementById('inquiry-content').value;
+            
+            if (!title.trim() || !content.trim()) {
+                alert('제목과 내용을 모두 입력해주세요.');
+                return;
+            }
+            
+            const subject = encodeURIComponent(title);
+            const body = encodeURIComponent(content);
+            window.location.href = `mailto:venturs@naver.com?subject=${subject}&body=${body}`;
+            
+            // 폼 초기화
+            document.getElementById('inquiry-title').value = '';
+            document.getElementById('inquiry-content').value = '';
+            document.getElementById('inquiry-agree').checked = false;
+        }
+    </script>
+</body>
+</html>

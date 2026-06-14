@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" role="img" aria-labelledby="title desc">
+  <title id="title">IoT counter device</title>
+  <desc id="desc">Industrial digital counter device with a red LED count display and control knob.</desc>
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f9d37b"/>
+      <stop offset="0.22" stop-color="#f8c65e"/>
+      <stop offset="0.48" stop-color="#eaa947"/>
+      <stop offset="0.75" stop-color="#b66a22"/>
+      <stop offset="1" stop-color="#7a3615"/>
+    </linearGradient>
+    <linearGradient id="cover" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.74"/>
+      <stop offset="0.4" stop-color="#d7dde7" stop-opacity="0.44"/>
+      <stop offset="1" stop-color="#9aa3b2" stop-opacity="0.2"/>
+    </linearGradient>
+    <filter id="shadow" x="-15%" y="-30%" width="130%" height="170%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#111827" flood-opacity="0.28"/>
+    </filter>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="noise" width="9" height="9" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.55" fill="#ffffff" opacity="0.15"/>
+      <circle cx="6" cy="5" r="0.45" fill="#3b1b0b" opacity="0.12"/>
+      <circle cx="3" cy="8" r="0.38" fill="#ffffff" opacity="0.11"/>
+    </pattern>
+  </defs>
+  <rect width="960" height="460" fill="#121212"/>
+  <ellipse cx="480" cy="380" rx="410" ry="38" fill="#000" opacity="0.36"/>
+  <g filter="url(#shadow)">
+    <path d="M51 123c16-35 42-53 78-53h701c41 0 72 28 79 68l24 130c7 39-25 74-65 74H85c-42 0-74-38-65-79l31-140z" fill="url(#body)"/>
+    <path d="M67 119c14-23 36-35 66-35h692c31 0 56 22 61 53l22 121c6 32-19 60-52 60H88c-33 0-58-30-51-62l30-137z" fill="url(#noise)" opacity="0.65"/>
+    <path d="M68 93h824l25 151H36L68 93z" fill="url(#cover)"/>
+    <path d="M72 96h815" stroke="#fff" stroke-width="9" opacity="0.42"/>
+    <path d="M58 297h829" stroke="#24150e" stroke-width="18" opacity="0.25"/>
+    <path d="M91 118h650c28 0 51 22 51 50v55c0 28-23 51-51 51H78l13-156z" fill="#222938" opacity="0.38"/>
+    <g opacity="0.78">
+      <rect x="99" y="142" width="44" height="94" rx="7" fill="#1f2937"/>
+      <rect x="157" y="142" width="44" height="94" rx="7" fill="#1f2937"/>
+      <rect x="215" y="142" width="44" height="94" rx="7" fill="#1f2937"/>
+      <rect x="273" y="142" width="44" height="94" rx="7" fill="#1f2937"/>
+      <rect x="331" y="142" width="44" height="94" rx="7" fill="#1f2937"/>
+      <rect x="389" y="142" width="44" height="94" rx="7" fill="#1f2937"/>
+    </g>
+    <g fill="none" stroke="#748092" stroke-width="8" stroke-linecap="round" opacity="0.34">
+      <path d="M108 153h26M108 190h26M108 225h26M104 158v27M138 193v27"/>
+      <path d="M166 153h26M166 190h26M166 225h26M162 158v27M196 193v27"/>
+      <path d="M224 153h26M224 190h26M224 225h26M220 158v27M254 193v27"/>
+      <path d="M282 153h26M282 190h26M282 225h26M278 158v27M312 193v27"/>
+      <path d="M340 153h26M340 190h26M340 225h26M336 158v27M370 193v27"/>
+      <path d="M398 153h26M398 190h26M398 225h26M394 158v27M428 193v27"/>
+    </g>
+    <g filter="url(#glow)" stroke="#ff3434" stroke-width="13" stroke-linecap="round" fill="none">
+      <path d="M526 153v79"/>
+      <path d="M584 151h55M584 151v40M584 191h50M637 191v40M584 231h53"/>
+    </g>
+    <g opacity="0.54">
+      <rect x="689" y="130" width="34" height="124" rx="5" fill="#111827"/>
+      <circle cx="706" cy="149" r="4" fill="#f8fafc"/>
+      <circle cx="706" cy="171" r="4" fill="#f8fafc"/>
+      <circle cx="706" cy="193" r="4" fill="#f8fafc"/>
+      <circle cx="706" cy="215" r="4" fill="#f8fafc"/>
+      <circle cx="706" cy="237" r="4" fill="#f8fafc"/>
+    </g>
+    <g transform="translate(784 137)">
+      <circle cx="63" cy="63" r="62" fill="#2f3540"/>
+      <circle cx="63" cy="63" r="51" fill="#e5e7eb"/>
+      <circle cx="63" cy="63" r="38" fill="#9ca3af"/>
+      <circle cx="63" cy="63" r="28" fill="#d1d5db"/>
+      <path d="M39 40c18-16 39-16 57 0" stroke="#fff" stroke-width="6" opacity="0.44" fill="none"/>
+      <path d="M34 86c20 16 43 16 61-1" stroke="#111827" stroke-width="5" opacity="0.24" fill="none"/>
+    </g>
+    <path d="M75 99c161 40 498 37 811 18" stroke="#fff" stroke-width="18" opacity="0.22" fill="none"/>
+    <path d="M76 282c248 34 507 30 784 3" stroke="#3b1707" stroke-width="13" opacity="0.22" fill="none"/>
+  </g>
+</svg>

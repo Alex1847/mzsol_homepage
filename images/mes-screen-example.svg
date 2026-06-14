@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 480" role="img" aria-labelledby="title desc">
+  <title id="title">MES dashboard screen example</title>
+  <desc id="desc">A MES dashboard with blue navigation, KPI cards, and a recent orders table.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#1f2937" flood-opacity="0.14"/>
+    </filter>
+    <linearGradient id="nav" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0078d7"/>
+      <stop offset="1" stop-color="#00a2ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="2048" height="480" fill="#f2f5f9"/>
+  <rect x="0" y="0" width="2048" height="38" fill="url(#nav)"/>
+  <text x="20" y="25" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#fff">MES 시스템</text>
+  <g font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#fff">
+    <text x="137" y="24">기준정보 ▼</text>
+    <text x="247" y="24">영업 ▼</text>
+    <text x="345" y="24">생산관리 ▼</text>
+    <text x="470" y="24">품질 ▼</text>
+    <text x="565" y="24">자재 ▼</text>
+    <text x="660" y="24">제품 ▼</text>
+    <text x="756" y="24">설비관리 ▼</text>
+    <text x="895" y="24">현황 ▼</text>
+  </g>
+  <rect x="1872" y="7" width="74" height="24" rx="12" fill="#22a7ff"/>
+  <text x="1895" y="23" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#fff">관리자</text>
+  <rect x="1958" y="1" width="70" height="36" fill="#1597e8"/>
+  <text x="1977" y="23" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#fff">로그아웃</text>
+  <rect x="0" y="58" width="48" height="422" fill="#2b3d4f"/>
+  <rect x="0" y="58" width="48" height="40" fill="#344a5f"/>
+  <text x="17" y="88" font-family="Arial, sans-serif" font-size="22" fill="#15a7e8">≡</text>
+  <text x="72" y="132" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">대시보드</text>
+  <g filter="url(#shadow)" font-family="Arial, sans-serif">
+    <g transform="translate(72 155)">
+      <rect width="313" height="96" rx="6" fill="#fff"/>
+      <text x="80" y="35" font-size="12" fill="#697586">총 수주</text>
+      <text x="80" y="72" font-size="28" font-weight="700" fill="#21364d">1</text>
+      <text x="30" y="63" font-size="35">📋</text>
+    </g>
+    <g transform="translate(400 155)">
+      <rect width="313" height="96" rx="6" fill="#fff"/>
+      <text x="80" y="35" font-size="12" fill="#697586">진행중 작업</text>
+      <text x="80" y="72" font-size="28" font-weight="700" fill="#21364d">0</text>
+      <text x="30" y="63" font-size="35">⚙️</text>
+    </g>
+    <g transform="translate(728 155)">
+      <rect width="313" height="96" rx="6" fill="#fff"/>
+      <text x="80" y="35" font-size="12" fill="#697586">완료 작업</text>
+      <text x="80" y="72" font-size="28" font-weight="700" fill="#21364d">1</text>
+      <text x="30" y="63" font-size="35">✅</text>
+    </g>
+    <g transform="translate(1056 155)">
+      <rect width="313" height="96" rx="6" fill="#fff"/>
+      <text x="80" y="35" font-size="12" fill="#697586">제품 수</text>
+      <text x="80" y="72" font-size="28" font-weight="700" fill="#21364d">3</text>
+      <text x="30" y="63" font-size="35">📦</text>
+    </g>
+    <g transform="translate(1384 155)">
+      <rect width="313" height="96" rx="6" fill="#fff"/>
+      <text x="80" y="35" font-size="12" fill="#697586">자재 수</text>
+      <text x="80" y="72" font-size="28" font-weight="700" fill="#21364d">4</text>
+      <text x="30" y="63" font-size="35">🔧</text>
+    </g>
+    <g transform="translate(1712 155)">
+      <rect width="313" height="96" rx="6" fill="#fff"/>
+      <rect width="4" height="96" rx="2" fill="#ffb300"/>
+      <text x="80" y="35" font-size="12" fill="#697586">재고 부족 자재</text>
+      <text x="80" y="72" font-size="28" font-weight="700" fill="#21364d">0</text>
+      <text x="30" y="63" font-size="35">⚠️</text>
+    </g>
+  </g>
+  <g transform="translate(72 275)" filter="url(#shadow)" font-family="Arial, sans-serif">
+    <rect width="1953" height="154" rx="6" fill="#fff"/>
+    <text x="17" y="37" font-size="22" font-weight="700" fill="#111">최근 수주</text>
+    <rect x="17" y="60" width="1919" height="40" fill="#f3f3f3"/>
+    <g font-size="13" font-weight="700" fill="#1f2937">
+      <text x="28" y="85">수주번호</text>
+      <text x="552" y="85">거래처</text>
+      <text x="767" y="85">수주일</text>
+      <text x="1098" y="85">납기일</text>
+      <text x="1463" y="85">상태</text>
+      <text x="1791" y="85">금액</text>
+    </g>
+    <line x1="17" y1="100" x2="1936" y2="100" stroke="#ddd"/>
+    <g font-size="13" fill="#111827">
+      <text x="28" y="124">ORD1766190272738</text>
+      <text x="766" y="124">2025-12-20</text>
+      <text x="1098" y="124">2025-12-10</text>
+      <text x="1463" y="124">CONFIRMED</text>
+      <text x="1791" y="124">0 원</text>
+    </g>
+    <line x1="17" y1="137" x2="1936" y2="137" stroke="#ddd"/>
+  </g>
+</svg>
