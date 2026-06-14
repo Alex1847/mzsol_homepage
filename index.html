@@ -2693,8 +2693,7 @@ TechDev Korea
         function hideCounterDetail() {
             document.getElementById('counter-detail-view').classList.remove('active');
             pauseCounterVideo();
-            document.getElementById('programs-grid-view').style.display = 'block';
-            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            returnHomeFromDetail();
         }
 
         function playCounterVideo() {
@@ -2730,8 +2729,7 @@ TechDev Korea
 
         function hideSensorNetworkDetail() {
             document.getElementById('sensor-network-detail-view').classList.remove('active');
-            document.getElementById('programs-grid-view').style.display = 'block';
-            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            returnHomeFromDetail();
         }
 
         function showPowerDetail() {
@@ -2758,8 +2756,7 @@ TechDev Korea
 
         function hidePowerDetail() {
             document.getElementById('power-detail-view').classList.remove('active');
-            document.getElementById('programs-grid-view').style.display = 'block';
-            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            returnHomeFromDetail();
         }
 
         function showMesDetailFromBenefits() {
@@ -2775,8 +2772,7 @@ TechDev Korea
 
         function hideMesDetail() {
             document.getElementById('mes-detail-view').classList.remove('active');
-            document.getElementById('programs-grid-view').style.display = 'block';
-            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            returnHomeFromDetail();
         }
 
         function showSafetyDetail() {
@@ -2792,8 +2788,7 @@ TechDev Korea
 
         function hideSafetyDetail() {
             document.getElementById('safety-detail-view').classList.remove('active');
-            document.getElementById('programs-grid-view').style.display = 'block';
-            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            returnHomeFromDetail();
         }
 
         function showSafetyDetailFromBenefits() {
@@ -2805,6 +2800,11 @@ TechDev Korea
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.add('active');
             document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function returnHomeFromDetail() {
+            resetDetailViews();
+            document.getElementById('home').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // 부드러운 스크롤
