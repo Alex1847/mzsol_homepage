@@ -1787,7 +1787,7 @@
                 </div>
             </div>
 
-            <div class="mes-screen-example">
+            <div id="mes-detail-screen-example" class="mes-screen-example">
                 <h3>&#128444; &#54868;&#47732;&#50696;&#49884;</h3>
                 <div class="mes-screen-example-frame">
                     <img src="images/mes-detail-screen-example.png" alt="MES 통합관리시스템 화면예시">
@@ -2683,7 +2683,8 @@ TechDev Korea
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('mes-detail-view');
             detail.classList.add('active');
-            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const example = document.getElementById('mes-detail-screen-example');
+            (example || detail).scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function showCounterDetail() {
@@ -2773,8 +2774,10 @@ TechDev Korea
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
-            document.getElementById('mes-detail-view').classList.add('active');
-            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const detail = document.getElementById('mes-detail-view');
+            detail.classList.add('active');
+            const example = document.getElementById('mes-detail-screen-example');
+            (example || detail).scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function hideMesDetail() {
