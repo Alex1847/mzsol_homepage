@@ -853,6 +853,52 @@
             object-fit: contain;
         }
 
+        .energy-system-photo img {
+            width: 100%;
+            height: auto;
+            min-height: 0;
+            object-fit: contain;
+        }
+
+        .energy-spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(31, 41, 55, 0.1);
+            margin-bottom: 2.5rem;
+        }
+
+        .energy-spec-table th,
+        .energy-spec-table td {
+            border: 1px solid #e5e7eb;
+            padding: 0.9rem 1rem;
+            text-align: left;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            color: #374151;
+            line-height: 1.45;
+        }
+
+        .energy-spec-table th {
+            background: #f8fafc;
+            color: #111827;
+            font-weight: 800;
+            width: 18%;
+        }
+
+        .energy-spec-table td:nth-child(2) {
+            width: 24%;
+            font-weight: 700;
+            color: #4b5563;
+        }
+
+        .energy-spec-note {
+            color: #b45309;
+            font-weight: 700;
+        }
+
         .counter-device-panel {
             padding: 2rem;
             border-top: 4px solid #f59e0b;
@@ -1154,7 +1200,10 @@
                             <span style="font-size: 1.2rem; margin-right: 0.5rem;">🌡️</span> 센서네트워크
                             <span style="margin-left:auto; font-size:0.8rem; color:#667eea; font-weight:600;">자세히 보기 →</span>
                         </li>
-                        <li>에너지관리시스템</li>
+                        <li class="mes-clickable" onclick="showEnergyManagementDetail()" title="에너지관리시스템 상세보기 클릭">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">⚙️</span> 에너지관리시스템
+                            <span style="margin-left:auto; font-size:0.8rem; color:#667eea; font-weight:600;">자세히 보기 →</span>
+                        </li>
                     </ul>
                 </div>
 
@@ -1554,6 +1603,135 @@
 
             <div style="margin-top: 2rem; text-align: center;">
                 <button class="mes-back-btn" onclick="hideSensorNetworkDetail()">이전으로 돌아가기</button>
+            </div>
+        </div>
+
+        <!-- 에너지관리시스템 상세 페이지 -->
+        <div id="energy-management-detail-view" class="mes-detail">
+            <button class="mes-back-btn" onclick="hideEnergyManagementDetail()">이전으로 돌아가기</button>
+
+            <div class="mes-hero-banner" style="background: linear-gradient(135deg, #1f2937 0%, #854d0e 52%, #f59e0b 100%);">
+                <div>
+                    <h2>⚙️ 에너지관리시스템</h2>
+                    <p>3상 전력 계측 장비와 CT 센서를 기반으로 전압, 전류, 실효전력, 주파수, 전력량을 측정하고<br>서버에 저장하여 설비별 에너지 사용 현황을 관리하는 IoT 에너지관리 솔루션</p>
+                    <div style="margin-top:1rem;">
+                        <span class="mes-badge">3상 전용</span>
+                        <span class="mes-badge">전압·전류 계측</span>
+                        <span class="mes-badge">전력량 서버저장</span>
+                        <span class="mes-badge">설비별 사용량 관리</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="counter-device-layout">
+                <div class="counter-device-photo energy-system-photo">
+                    <img src="images/energy-management-system.png" alt="에너지관리시스템 설치 및 장비 구성 이미지">
+                </div>
+                <div class="counter-device-panel" style="border-top-color:#f59e0b;">
+                    <h3>3상 전력 사용량 계측 장비</h3>
+                    <p>분전반 또는 설비 전원부에 CT 센서와 계측 장비를 설치하여 전압, 전류, 전력량 데이터를 수집합니다. 수집된 데이터는 서버에 저장되어 설비별 사용량 확인, 이력 관리, 에너지 절감 분석에 활용할 수 있습니다.</p>
+                    <div class="counter-spec-grid">
+                        <div class="counter-spec">
+                            <strong>사용전압</strong>
+                            <span>AC 80~260V</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>측정전류</strong>
+                            <span>0~10A, 0~100A</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>전력량</strong>
+                            <span>0~9999.99kwh</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>관리방식</strong>
+                            <span>서버저장 및 관리</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size:1.4rem; color:#333; margin-bottom:1rem;">📋 3상전용 스펙</h3>
+            <table class="energy-spec-table" aria-label="에너지관리시스템 3상전용 스펙">
+                <tbody>
+                    <tr>
+                        <th rowspan="2">전압</th>
+                        <td>사용전압</td>
+                        <td>AC 80~260V</td>
+                        <td rowspan="11" class="energy-spec-note">각 항목별 정밀도는 0.5%</td>
+                    </tr>
+                    <tr>
+                        <td>해상도</td>
+                        <td>0.1V</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">전류</th>
+                        <td>측정전류</td>
+                        <td>0~10A, 0~100A</td>
+                    </tr>
+                    <tr>
+                        <td>전류해상도</td>
+                        <td>0.01A 10A 모델<br>0.02A 100A 모델</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">실효전력</th>
+                        <td>측정범위</td>
+                        <td>0~2.3KW(10A), 0~23KW(100A)</td>
+                    </tr>
+                    <tr>
+                        <td>해상도</td>
+                        <td>0.1W</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">주파수</th>
+                        <td>범위</td>
+                        <td>45~65HZ</td>
+                    </tr>
+                    <tr>
+                        <td>해상도</td>
+                        <td>0.1hz</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">전력량</th>
+                        <td>측정범위</td>
+                        <td>0~9999.99kwh</td>
+                    </tr>
+                    <tr>
+                        <td>해상도</td>
+                        <td>1wh</td>
+                    </tr>
+                    <tr>
+                        <th>특징</th>
+                        <td>서버저장 및 관리</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mes-features-summary" style="background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 100%); border-color: #fde68a;">
+                <h3>⚡ 주요 기능</h3>
+                <div class="mes-features-grid">
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📊</span>
+                        <span>설비별 전력량<br>실시간 수집</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">💾</span>
+                        <span>서버 저장 및<br>이력 관리</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">⚠️</span>
+                        <span>사용량 이상<br>감시 확장</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📈</span>
+                        <span>에너지 절감<br>분석 기반</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <button class="mes-back-btn" onclick="hideEnergyManagementDetail()">이전으로 돌아가기</button>
             </div>
         </div>
 
@@ -2682,6 +2860,7 @@ TechDev Korea
             document.getElementById('counter-detail-view').classList.remove('active');
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('mes-detail-view');
@@ -2693,6 +2872,7 @@ TechDev Korea
             document.getElementById('programs-grid-view').style.display = 'none';
             document.getElementById('mes-detail-view').classList.remove('active');
             document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             document.getElementById('counter-detail-view').classList.add('active');
@@ -2731,6 +2911,7 @@ TechDev Korea
             document.getElementById('mes-detail-view').classList.remove('active');
             document.getElementById('counter-detail-view').classList.remove('active');
             pauseCounterVideo();
+            document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             document.getElementById('sensor-network-detail-view').classList.add('active');
@@ -2742,12 +2923,30 @@ TechDev Korea
             returnHomeFromDetail();
         }
 
+        function showEnergyManagementDetail() {
+            document.getElementById('programs-grid-view').style.display = 'none';
+            document.getElementById('mes-detail-view').classList.remove('active');
+            document.getElementById('counter-detail-view').classList.remove('active');
+            pauseCounterVideo();
+            document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('power-detail-view').classList.remove('active');
+            document.getElementById('safety-detail-view').classList.remove('active');
+            document.getElementById('energy-management-detail-view').classList.add('active');
+            document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function hideEnergyManagementDetail() {
+            document.getElementById('energy-management-detail-view').classList.remove('active');
+            returnHomeFromDetail();
+        }
+
         function showPowerDetail() {
             document.getElementById('programs-grid-view').style.display = 'none';
             document.getElementById('mes-detail-view').classList.remove('active');
             document.getElementById('counter-detail-view').classList.remove('active');
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.add('active');
             document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2759,6 +2958,7 @@ TechDev Korea
             document.getElementById('counter-detail-view').classList.remove('active');
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.add('active');
             document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2774,6 +2974,7 @@ TechDev Korea
             document.getElementById('counter-detail-view').classList.remove('active');
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('mes-detail-view');
@@ -2792,6 +2993,7 @@ TechDev Korea
             document.getElementById('counter-detail-view').classList.remove('active');
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.add('active');
             document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2808,6 +3010,7 @@ TechDev Korea
             document.getElementById('counter-detail-view').classList.remove('active');
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.add('active');
             document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2842,7 +3045,7 @@ TechDev Korea
                 programsGrid.style.display = 'block';
             }
 
-            ['mes-detail-view', 'counter-detail-view', 'sensor-network-detail-view', 'power-detail-view', 'safety-detail-view']
+            ['mes-detail-view', 'counter-detail-view', 'sensor-network-detail-view', 'energy-management-detail-view', 'power-detail-view', 'safety-detail-view']
                 .forEach(id => {
                     const detail = document.getElementById(id);
                     if (detail) {
