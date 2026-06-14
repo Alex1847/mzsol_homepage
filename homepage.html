@@ -2998,7 +2998,7 @@ TechDev Korea
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
-                if (targetId === '#home') {
+                if (targetId === '#home' || targetId === '#programs') {
                     resetDetailViews();
                 }
                 const target = document.querySelector(targetId);
