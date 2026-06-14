@@ -2900,7 +2900,8 @@ TechDev Korea
                 alert('문의가 정상적으로 전송되었습니다.');
             } catch (error) {
                 console.error('EmailJS send failed:', error);
-                alert('문의 전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                const errorMessage = error && (error.text || error.message || JSON.stringify(error));
+                alert(`문의 전송 중 오류가 발생했습니다.\n\n${errorMessage || '알 수 없는 오류'}`);
                 return;
             } finally {
                 submitButton.disabled = false;
