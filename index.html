@@ -516,6 +516,10 @@
             display: block;
         }
 
+        .programs.detail-active > .section-title {
+            display: none;
+        }
+
         .mes-back-btn {
             display: inline-flex;
             align-items: center;
@@ -2808,6 +2812,7 @@ TechDev Korea
 
         // MES 상세 보기 / 숨기기
         function showMesDetail() {
+            document.getElementById('programs').classList.add('detail-active');
             document.getElementById('programs-grid-view').style.display = 'none';
             document.getElementById('counter-detail-view').classList.remove('active');
             pauseCounterVideo();
@@ -2821,6 +2826,7 @@ TechDev Korea
         }
 
         function showCounterDetail() {
+            document.getElementById('programs').classList.add('detail-active');
             document.getElementById('programs-grid-view').style.display = 'none';
             document.getElementById('mes-detail-view').classList.remove('active');
             document.getElementById('sensor-network-detail-view').classList.remove('active');
@@ -2859,6 +2865,7 @@ TechDev Korea
         }
 
         function showSensorNetworkDetail() {
+            document.getElementById('programs').classList.add('detail-active');
             document.getElementById('programs-grid-view').style.display = 'none';
             document.getElementById('mes-detail-view').classList.remove('active');
             document.getElementById('counter-detail-view').classList.remove('active');
@@ -2877,6 +2884,7 @@ TechDev Korea
         }
 
         function showEnergyManagementDetail() {
+            document.getElementById('programs').classList.add('detail-active');
             document.getElementById('programs-grid-view').style.display = 'none';
             document.getElementById('mes-detail-view').classList.remove('active');
             document.getElementById('counter-detail-view').classList.remove('active');
@@ -2894,6 +2902,7 @@ TechDev Korea
         }
 
         function showPowerDetail() {
+            document.getElementById('programs').classList.add('detail-active');
             document.getElementById('programs-grid-view').style.display = 'none';
             document.getElementById('mes-detail-view').classList.remove('active');
             document.getElementById('counter-detail-view').classList.remove('active');
@@ -2907,6 +2916,7 @@ TechDev Korea
         }
 
         function showPowerDetailFromBenefits() {
+            document.getElementById('programs').classList.add('detail-active');
             document.getElementById('programs-grid-view').style.display = 'none';
             document.getElementById('mes-detail-view').classList.remove('active');
             document.getElementById('counter-detail-view').classList.remove('active');
@@ -2924,6 +2934,7 @@ TechDev Korea
         }
 
         function showMesDetailFromBenefits() {
+            document.getElementById('programs').classList.add('detail-active');
             document.getElementById('programs-grid-view').style.display = 'none';
             document.getElementById('counter-detail-view').classList.remove('active');
             pauseCounterVideo();
@@ -2942,6 +2953,7 @@ TechDev Korea
         }
 
         function showSafetyDetail() {
+            document.getElementById('programs').classList.add('detail-active');
             document.getElementById('programs-grid-view').style.display = 'none';
             document.getElementById('mes-detail-view').classList.remove('active');
             document.getElementById('counter-detail-view').classList.remove('active');
@@ -2960,6 +2972,7 @@ TechDev Korea
         }
 
         function showSafetyDetailFromBenefits() {
+            document.getElementById('programs').classList.add('detail-active');
             document.getElementById('programs-grid-view').style.display = 'none';
             document.getElementById('mes-detail-view').classList.remove('active');
             document.getElementById('counter-detail-view').classList.remove('active');
@@ -2999,6 +3012,7 @@ TechDev Korea
             if (programsGrid) {
                 programsGrid.style.display = 'block';
             }
+            document.getElementById('programs').classList.remove('detail-active');
 
             ['mes-detail-view', 'counter-detail-view', 'sensor-network-detail-view', 'energy-management-detail-view', 'power-detail-view', 'safety-detail-view']
                 .forEach(id => {
