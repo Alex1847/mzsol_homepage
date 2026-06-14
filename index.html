@@ -1195,7 +1195,10 @@
                     <h3>자동화관련장비</h3>
                     <p>현장 맞춤형 자동화 장비 및 제어 시스템 구축</p>
                     <ul>
-                        <li>전장판넬 제작설치</li>
+                        <li class="mes-clickable" onclick="showControlPanelDetail()" title="전장판넬 설계 제작 상세보기 클릭">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">🧰</span> 전장판넬 설계 제작
+                            <span style="margin-left:auto; font-size:0.8rem; color:#667eea; font-weight:600;">자세히 보기 →</span>
+                        </li>
                         <li>PLC 및 TOUCH 프로그램 개발적용</li>
                         <li>기타 개발요청사항 적용 및 AS</li>
                     </ul>
@@ -1718,6 +1721,79 @@
 
             <div style="margin-top: 2rem; text-align: center;">
                 <button class="mes-back-btn" onclick="hideEnergyManagementDetail()">이전으로 돌아가기</button>
+            </div>
+        </div>
+
+        <!-- 전장판넬 설계 제작 상세 페이지 -->
+        <div id="control-panel-detail-view" class="mes-detail">
+            <button class="mes-back-btn" onclick="hideControlPanelDetail()">이전으로 돌아가기</button>
+
+            <div class="mes-hero-banner" style="background: linear-gradient(135deg, #111827 0%, #374151 50%, #6b7280 100%);">
+                <div>
+                    <h2>🧰 전장판넬 설계 제작</h2>
+                    <p>현장 설비 조건에 맞춰 전원·제어·보호 회로를 설계하고<br>PLC, 차단기, 릴레이, 단자대 배선까지 일괄 제작하는 전장판넬 제작 서비스</p>
+                    <div style="margin-top:1rem;">
+                        <span class="mes-badge">전장 설계</span>
+                        <span class="mes-badge">판넬 제작</span>
+                        <span class="mes-badge">PLC 배선</span>
+                        <span class="mes-badge">회로 보호 구성</span>
+                        <span class="mes-badge">현장 설치 대응</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="counter-device-layout">
+                <div class="counter-device-photo energy-system-photo">
+                    <img src="images/control-panel-design.png" alt="전장판넬 설계 제작 이미지">
+                </div>
+                <div class="counter-device-panel" style="border-top-color:#6b7280;">
+                    <h3>현장 맞춤형 전장판넬 구성</h3>
+                    <p>설비 제어 목적과 현장 전원 조건을 기준으로 전장 도면을 설계하고, 차단기·릴레이·PLC·I/O 모듈·단자대·배선 덕트까지 정리된 판넬 형태로 제작합니다. 유지보수 편의성을 위해 라벨링과 배선 정리를 함께 적용합니다.</p>
+                    <div class="counter-spec-grid">
+                        <div class="counter-spec">
+                            <strong>설계 범위</strong>
+                            <span>전원·제어 회로 설계</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>제작 범위</strong>
+                            <span>차단기, 릴레이, PLC, 단자대 배치</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>배선 관리</strong>
+                            <span>덕트 배선, 라벨링, 유지보수 구조</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>연계 작업</strong>
+                            <span>PLC 및 TOUCH 프로그램 적용</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mes-features-summary" style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border-color: #d1d5db;">
+                <h3>⚙️ 주요 작업</h3>
+                <div class="mes-features-grid">
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📐</span>
+                        <span>전장 회로<br>설계 검토</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🔌</span>
+                        <span>전원·제어<br>배선 제작</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🏷️</span>
+                        <span>단자·배선<br>라벨링</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🧪</span>
+                        <span>입출력 점검<br>시운전 대응</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <button class="mes-back-btn" onclick="hideControlPanelDetail()">이전으로 돌아가기</button>
             </div>
         </div>
 
@@ -2818,6 +2894,7 @@ TechDev Korea
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.remove('active');
+            document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('mes-detail-view');
@@ -2831,6 +2908,7 @@ TechDev Korea
             document.getElementById('mes-detail-view').classList.remove('active');
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.remove('active');
+            document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             document.getElementById('counter-detail-view').classList.add('active');
@@ -2871,6 +2949,7 @@ TechDev Korea
             document.getElementById('counter-detail-view').classList.remove('active');
             pauseCounterVideo();
             document.getElementById('energy-management-detail-view').classList.remove('active');
+            document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('sensor-network-detail-view');
@@ -2890,6 +2969,7 @@ TechDev Korea
             document.getElementById('counter-detail-view').classList.remove('active');
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.add('active');
@@ -2901,6 +2981,26 @@ TechDev Korea
             returnHomeFromDetail();
         }
 
+        function showControlPanelDetail() {
+            document.getElementById('programs').classList.add('detail-active');
+            document.getElementById('programs-grid-view').style.display = 'none';
+            document.getElementById('mes-detail-view').classList.remove('active');
+            document.getElementById('counter-detail-view').classList.remove('active');
+            pauseCounterVideo();
+            document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('energy-management-detail-view').classList.remove('active');
+            document.getElementById('power-detail-view').classList.remove('active');
+            document.getElementById('safety-detail-view').classList.remove('active');
+            const detail = document.getElementById('control-panel-detail-view');
+            detail.classList.add('active');
+            detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function hideControlPanelDetail() {
+            document.getElementById('control-panel-detail-view').classList.remove('active');
+            returnHomeFromDetail();
+        }
+
         function showPowerDetail() {
             document.getElementById('programs').classList.add('detail-active');
             document.getElementById('programs-grid-view').style.display = 'none';
@@ -2909,6 +3009,7 @@ TechDev Korea
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.remove('active');
+            document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('power-detail-view');
             detail.classList.add('active');
@@ -2923,6 +3024,7 @@ TechDev Korea
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.remove('active');
+            document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.add('active');
             document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2940,6 +3042,7 @@ TechDev Korea
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.remove('active');
+            document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('mes-detail-view');
@@ -2960,6 +3063,7 @@ TechDev Korea
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.remove('active');
+            document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             const detail = document.getElementById('safety-detail-view');
             detail.classList.add('active');
@@ -2979,6 +3083,7 @@ TechDev Korea
             pauseCounterVideo();
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.remove('active');
+            document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.add('active');
             document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -3014,7 +3119,7 @@ TechDev Korea
             }
             document.getElementById('programs').classList.remove('detail-active');
 
-            ['mes-detail-view', 'counter-detail-view', 'sensor-network-detail-view', 'energy-management-detail-view', 'power-detail-view', 'safety-detail-view']
+            ['mes-detail-view', 'counter-detail-view', 'sensor-network-detail-view', 'energy-management-detail-view', 'control-panel-detail-view', 'power-detail-view', 'safety-detail-view']
                 .forEach(id => {
                     const detail = document.getElementById(id);
                     if (detail) {
