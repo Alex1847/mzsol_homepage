@@ -309,6 +309,140 @@
             font-weight: bold;
         }
 
+        .product-showcase {
+            margin: 1rem 0 2.5rem;
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 12px 34px rgba(17, 24, 39, 0.12);
+            overflow: hidden;
+        }
+
+        .product-showcase-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.3rem 1.5rem 1rem;
+            border-bottom: 1px solid #eef0f5;
+        }
+
+        .product-showcase-header h3 {
+            color: #111827;
+            font-size: 1.35rem;
+            margin: 0;
+        }
+
+        .product-showcase-state {
+            color: #667eea;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .product-showcase-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            padding: 0 1.5rem 1.25rem;
+        }
+
+        .product-showcase-tab {
+            border: 1px solid #d8def8;
+            background: #f8f9ff;
+            color: #374151;
+            border-radius: 999px;
+            padding: 0.55rem 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+        }
+
+        .product-showcase-tab:hover,
+        .product-showcase-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .product-showcase-viewport {
+            overflow: hidden;
+        }
+
+        .product-showcase-track {
+            display: flex;
+            transition: transform 0.75s ease;
+        }
+
+        .product-showcase-slide {
+            min-width: 100%;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            align-items: center;
+        }
+
+        .product-showcase-media {
+            background: #f3f4f6;
+            border-radius: 14px;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-showcase-media img,
+        .product-showcase-media video {
+            width: 100%;
+            height: 100%;
+            max-height: 360px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .product-showcase-copy {
+            padding: 0.5rem;
+        }
+
+        .product-showcase-copy h4 {
+            font-size: 1.7rem;
+            color: #111827;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-showcase-copy p {
+            color: #4b5563;
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        .product-showcase-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .product-showcase-tags span {
+            background: #eef2ff;
+            color: #4f46e5;
+            border-radius: 999px;
+            padding: 0.35rem 0.7rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .product-showcase-link {
+            border: none;
+            background: #111827;
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 0.75rem 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
         .benefits {
             background: #f8f9fa;
             padding: 80px 2rem;
@@ -505,6 +639,20 @@
 
             .section-title {
                 font-size: 2rem;
+            }
+
+            .product-showcase-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .product-showcase-slide {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .product-showcase-media {
+                min-height: 220px;
             }
 
             .button-group {
@@ -1221,6 +1369,102 @@
                             <span style="margin-left:auto; font-size:0.8rem; color:#667eea; font-weight:600;">자세히 보기 →</span>
                         </li>
                     </ul>
+                </div>
+            </div>
+            <div class="product-showcase" id="product-showcase">
+                <div class="product-showcase-header">
+                    <h3>주요 생산제품</h3>
+                    <span class="product-showcase-state" id="product-showcase-state">자동 이동 중</span>
+                </div>
+                <div class="product-showcase-tabs" aria-label="주요 생산제품 선택">
+                    <button type="button" class="product-showcase-tab active" onclick="selectProductShowcase(0)">카운터</button>
+                    <button type="button" class="product-showcase-tab" onclick="selectProductShowcase(1)">센서네트워크</button>
+                    <button type="button" class="product-showcase-tab" onclick="selectProductShowcase(2)">에너지관리시스템</button>
+                    <button type="button" class="product-showcase-tab" onclick="selectProductShowcase(3)">전장판넬설계제작</button>
+                    <button type="button" class="product-showcase-tab" onclick="selectProductShowcase(4)">touch 개발 및 언어변환</button>
+                    <button type="button" class="product-showcase-tab" onclick="selectProductShowcase(5)">PC 프로그램 개발</button>
+                </div>
+                <div class="product-showcase-viewport">
+                    <div class="product-showcase-track" id="product-showcase-track">
+                        <article class="product-showcase-slide">
+                            <div class="product-showcase-media">
+                                <video src="images/counterDemo.mp4" muted loop playsinline autoplay aria-label="카운터 제품 영상"></video>
+                            </div>
+                            <div class="product-showcase-copy">
+                                <h4>카운터</h4>
+                                <p>생산 수량, 작업 횟수, 이벤트 발생 값을 현장에서 바로 확인하고 서버와 연동할 수 있는 IoT 카운터 장비입니다.</p>
+                                <div class="product-showcase-tags">
+                                    <span>LED 표시</span><span>센서 입력</span><span>원격 모니터링</span>
+                                </div>
+                                <button type="button" class="product-showcase-link" onclick="showCounterDetail()">자세히 보기</button>
+                            </div>
+                        </article>
+                        <article class="product-showcase-slide">
+                            <div class="product-showcase-media">
+                                <img src="images/sensor-network.svg" alt="센서네트워크 제품 이미지">
+                            </div>
+                            <div class="product-showcase-copy">
+                                <h4>센서네트워크</h4>
+                                <p>온습도, 압력, 미세먼지 등 현장 센서 데이터를 수집해 MQTT, Web 서버, PC 이력관리까지 연결합니다.</p>
+                                <div class="product-showcase-tags">
+                                    <span>센서 수집</span><span>MQTT</span><span>PC 이력</span>
+                                </div>
+                                <button type="button" class="product-showcase-link" onclick="showSensorNetworkDetail()">자세히 보기</button>
+                            </div>
+                        </article>
+                        <article class="product-showcase-slide">
+                            <div class="product-showcase-media">
+                                <img src="images/energy-management-system.png" alt="에너지관리시스템 제품 이미지">
+                            </div>
+                            <div class="product-showcase-copy">
+                                <h4>에너지관리시스템</h4>
+                                <p>3상 전력 계측과 CT 센서를 기반으로 전압, 전류, 전력량을 측정하고 설비별 사용량을 관리합니다.</p>
+                                <div class="product-showcase-tags">
+                                    <span>3상 계측</span><span>전력량 저장</span><span>사용량 관리</span>
+                                </div>
+                                <button type="button" class="product-showcase-link" onclick="showEnergyManagementDetail()">자세히 보기</button>
+                            </div>
+                        </article>
+                        <article class="product-showcase-slide">
+                            <div class="product-showcase-media">
+                                <img src="images/control-panel-design.png" alt="전장판넬 설계 제작 제품 이미지">
+                            </div>
+                            <div class="product-showcase-copy">
+                                <h4>전장판넬설계제작</h4>
+                                <p>전원, 제어, 보호 회로를 현장 조건에 맞춰 설계하고 PLC, 차단기, 릴레이, 단자대 배선까지 제작합니다.</p>
+                                <div class="product-showcase-tags">
+                                    <span>전장 설계</span><span>판넬 제작</span><span>PLC 배선</span>
+                                </div>
+                                <button type="button" class="product-showcase-link" onclick="showControlPanelDetail()">자세히 보기</button>
+                            </div>
+                        </article>
+                        <article class="product-showcase-slide">
+                            <div class="product-showcase-media">
+                                <img src="images/touch-language-development.png" alt="touch 개발 및 언어변환 제품 이미지">
+                            </div>
+                            <div class="product-showcase-copy">
+                                <h4>touch 개발 및 베트남어 중국어변환</h4>
+                                <p>TOUCH/HMI 화면을 설비 운영 방식에 맞춰 구성하고 한국어, 영어, 베트남어, 중국어 등 다국어 전환을 적용합니다.</p>
+                                <div class="product-showcase-tags">
+                                    <span>TOUCH 개발</span><span>PLC 연동</span><span>다국어 전환</span>
+                                </div>
+                                <button type="button" class="product-showcase-link" onclick="showTouchLanguageDetail()">자세히 보기</button>
+                            </div>
+                        </article>
+                        <article class="product-showcase-slide">
+                            <div class="product-showcase-media">
+                                <img src="images/pc-program-development.png" alt="PC 프로그램 개발 제품 이미지">
+                            </div>
+                            <div class="product-showcase-copy">
+                                <h4>PC 프로그램 개발</h4>
+                                <p>주액기 이력관리, 자동차 검사기, 측정 데이터 저장, DB 연동 등 현장 요청사항에 맞춘 PC 프로그램을 개발합니다.</p>
+                                <div class="product-showcase-tags">
+                                    <span>이력관리</span><span>검사기</span><span>DB 연동</span>
+                                </div>
+                                <button type="button" class="product-showcase-link" onclick="showCustomDevelopmentDetail()">자세히 보기</button>
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </div>
             <div style="margin-top: 2rem; text-align: center;">
@@ -3220,6 +3464,50 @@ TechDev Korea
             returnHomeFromDetail();
         }
 
+        let productShowcaseIndex = 0;
+        let productShowcaseTimer = null;
+        let productShowcaseLocked = false;
+
+        function updateProductShowcase(index) {
+            const track = document.getElementById('product-showcase-track');
+            const tabs = document.querySelectorAll('.product-showcase-tab');
+            const slides = document.querySelectorAll('.product-showcase-slide');
+            if (!track || !slides.length) return;
+
+            productShowcaseIndex = (index + slides.length) % slides.length;
+            track.style.transform = `translateX(-${productShowcaseIndex * 100}%)`;
+            tabs.forEach((tab, tabIndex) => {
+                tab.classList.toggle('active', tabIndex === productShowcaseIndex);
+            });
+        }
+
+        function startProductShowcase() {
+            if (productShowcaseTimer || productShowcaseLocked) return;
+            productShowcaseTimer = setInterval(() => {
+                updateProductShowcase(productShowcaseIndex + 1);
+            }, 3500);
+        }
+
+        function stopProductShowcase() {
+            if (productShowcaseTimer) {
+                clearInterval(productShowcaseTimer);
+                productShowcaseTimer = null;
+            }
+        }
+
+        function selectProductShowcase(index) {
+            productShowcaseLocked = true;
+            stopProductShowcase();
+            updateProductShowcase(index);
+            const state = document.getElementById('product-showcase-state');
+            if (state) {
+                state.textContent = '선택한 제품 고정 표시';
+            }
+        }
+
+        updateProductShowcase(0);
+        startProductShowcase();
+
         function showPowerDetail() {
             document.getElementById('programs').classList.add('detail-active');
             document.getElementById('programs-grid-view').style.display = 'none';
@@ -3347,6 +3635,12 @@ TechDev Korea
                 programsGrid.style.display = 'block';
             }
             document.getElementById('programs').classList.remove('detail-active');
+            productShowcaseLocked = false;
+            const state = document.getElementById('product-showcase-state');
+            if (state) {
+                state.textContent = '자동 이동 중';
+            }
+            startProductShowcase();
 
             ['mes-detail-view', 'counter-detail-view', 'sensor-network-detail-view', 'energy-management-detail-view', 'control-panel-detail-view', 'touch-language-detail-view', 'custom-development-detail-view', 'power-detail-view', 'safety-detail-view']
                 .forEach(id => {
