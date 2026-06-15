@@ -1203,7 +1203,10 @@
                             <span style="font-size: 1.2rem; margin-right: 0.5rem;">🌐</span> touch 개발 및 영어,베트남어,중국어등 언어변환
                             <span style="margin-left:auto; font-size:0.8rem; color:#667eea; font-weight:600;">자세히 보기 →</span>
                         </li>
-                        <li>기타 개발요청사항 적용 및 AS</li>
+                        <li class="mes-clickable" onclick="showCustomDevelopmentDetail()" title="PC 프로그램 개발 상세보기 클릭">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">💻</span> PC 프로그램 개발
+                            <span style="margin-left:auto; font-size:0.8rem; color:#667eea; font-weight:600;">자세히 보기 →</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -1870,6 +1873,79 @@
 
             <div style="margin-top: 2rem; text-align: center;">
                 <button class="mes-back-btn" onclick="hideTouchLanguageDetail()">이전으로 돌아가기</button>
+            </div>
+        </div>
+
+        <!-- PC 프로그램 개발 상세 페이지 -->
+        <div id="custom-development-detail-view" class="mes-detail">
+            <button class="mes-back-btn" onclick="hideCustomDevelopmentDetail()">이전으로 돌아가기</button>
+
+            <div class="mes-hero-banner" style="background: linear-gradient(135deg, #0f172a 0%, #334155 52%, #64748b 100%);">
+                <div>
+                    <h2>💻 PC 프로그램 개발</h2>
+                    <p>주액기 이력관리, 자동차 검사기, 측정 데이터 수집 및 현장 운영 프로그램 등<br>설비 조건과 요청사항에 맞춘 PC 기반 프로그램 개발 및 AS 지원</p>
+                    <div style="margin-top:1rem;">
+                        <span class="mes-badge">주액기 이력관리</span>
+                        <span class="mes-badge">자동차 검사기</span>
+                        <span class="mes-badge">측정 데이터 저장</span>
+                        <span class="mes-badge">DB 연동</span>
+                        <span class="mes-badge">현장 맞춤 AS</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="counter-device-layout">
+                <div class="counter-device-photo energy-system-photo">
+                    <img src="images/pc-program-development.png" alt="PC 프로그램 개발 화면 예시">
+                </div>
+                <div class="counter-device-panel" style="border-top-color:#64748b;">
+                    <h3>현장 맞춤형 PC 프로그램 개발</h3>
+                    <p>생산 설비와 검사 장비에서 발생하는 데이터를 PC 화면에서 확인하고, 모델별 기준값 설정, 측정 이력 조회, 양품·불량 집계, DB 저장 및 리포트 관리를 할 수 있도록 구성합니다. 주액기 이력관리, 자동차 검사기 외에도 현장 요청사항에 맞춰 기능을 추가하고 유지보수 및 AS를 지원합니다.</p>
+                    <div class="counter-spec-grid">
+                        <div class="counter-spec">
+                            <strong>개발 대상</strong>
+                            <span>주액기 이력관리, 자동차 검사기, 측정 프로그램</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>관리 기능</strong>
+                            <span>측정 이력, 모델 설정, 일별 실적, 불량 집계</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>연동 범위</strong>
+                            <span>PLC, 계측기, 시리얼 통신, SQLite DB</span>
+                        </div>
+                        <div class="counter-spec">
+                            <strong>지원 범위</strong>
+                            <span>요청 기능 개발, 화면 수정, 현장 AS 대응</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mes-features-summary" style="background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%); border-color: #cbd5e1;">
+                <h3>🧩 주요 개발 요청사항</h3>
+                <div class="mes-features-grid">
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🧪</span>
+                        <span>검사기 화면<br>개발 적용</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">📊</span>
+                        <span>이력 조회<br>및 실적 관리</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🗄️</span>
+                        <span>DB 저장<br>및 백업 구성</span>
+                    </div>
+                    <div class="mes-feature-chip">
+                        <span class="chip-icon">🛠️</span>
+                        <span>기능 개선<br>및 AS 대응</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <button class="mes-back-btn" onclick="hideCustomDevelopmentDetail()">이전으로 돌아가기</button>
             </div>
         </div>
 
@@ -2972,6 +3048,7 @@ TechDev Korea
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('touch-language-detail-view').classList.remove('active');
+            document.getElementById('custom-development-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('mes-detail-view');
@@ -2987,6 +3064,7 @@ TechDev Korea
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('touch-language-detail-view').classList.remove('active');
+            document.getElementById('custom-development-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             document.getElementById('counter-detail-view').classList.add('active');
@@ -3029,6 +3107,7 @@ TechDev Korea
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('touch-language-detail-view').classList.remove('active');
+            document.getElementById('custom-development-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('sensor-network-detail-view');
@@ -3050,6 +3129,7 @@ TechDev Korea
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('touch-language-detail-view').classList.remove('active');
+            document.getElementById('custom-development-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.add('active');
@@ -3070,6 +3150,7 @@ TechDev Korea
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('touch-language-detail-view').classList.remove('active');
+            document.getElementById('custom-development-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('control-panel-detail-view');
@@ -3091,6 +3172,7 @@ TechDev Korea
             document.getElementById('sensor-network-detail-view').classList.remove('active');
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('control-panel-detail-view').classList.remove('active');
+            document.getElementById('custom-development-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('touch-language-detail-view');
@@ -3100,6 +3182,28 @@ TechDev Korea
 
         function hideTouchLanguageDetail() {
             document.getElementById('touch-language-detail-view').classList.remove('active');
+            returnHomeFromDetail();
+        }
+
+        function showCustomDevelopmentDetail() {
+            document.getElementById('programs').classList.add('detail-active');
+            document.getElementById('programs-grid-view').style.display = 'none';
+            document.getElementById('mes-detail-view').classList.remove('active');
+            document.getElementById('counter-detail-view').classList.remove('active');
+            pauseCounterVideo();
+            document.getElementById('sensor-network-detail-view').classList.remove('active');
+            document.getElementById('energy-management-detail-view').classList.remove('active');
+            document.getElementById('control-panel-detail-view').classList.remove('active');
+            document.getElementById('touch-language-detail-view').classList.remove('active');
+            document.getElementById('power-detail-view').classList.remove('active');
+            document.getElementById('safety-detail-view').classList.remove('active');
+            const detail = document.getElementById('custom-development-detail-view');
+            detail.classList.add('active');
+            detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function hideCustomDevelopmentDetail() {
+            document.getElementById('custom-development-detail-view').classList.remove('active');
             returnHomeFromDetail();
         }
 
@@ -3113,6 +3217,7 @@ TechDev Korea
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('touch-language-detail-view').classList.remove('active');
+            document.getElementById('custom-development-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('power-detail-view');
             detail.classList.add('active');
@@ -3129,6 +3234,7 @@ TechDev Korea
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('touch-language-detail-view').classList.remove('active');
+            document.getElementById('custom-development-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.add('active');
             document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -3148,6 +3254,7 @@ TechDev Korea
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('touch-language-detail-view').classList.remove('active');
+            document.getElementById('custom-development-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.remove('active');
             const detail = document.getElementById('mes-detail-view');
@@ -3170,6 +3277,7 @@ TechDev Korea
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('touch-language-detail-view').classList.remove('active');
+            document.getElementById('custom-development-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             const detail = document.getElementById('safety-detail-view');
             detail.classList.add('active');
@@ -3191,6 +3299,7 @@ TechDev Korea
             document.getElementById('energy-management-detail-view').classList.remove('active');
             document.getElementById('control-panel-detail-view').classList.remove('active');
             document.getElementById('touch-language-detail-view').classList.remove('active');
+            document.getElementById('custom-development-detail-view').classList.remove('active');
             document.getElementById('power-detail-view').classList.remove('active');
             document.getElementById('safety-detail-view').classList.add('active');
             document.getElementById('programs').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -3226,7 +3335,7 @@ TechDev Korea
             }
             document.getElementById('programs').classList.remove('detail-active');
 
-            ['mes-detail-view', 'counter-detail-view', 'sensor-network-detail-view', 'energy-management-detail-view', 'control-panel-detail-view', 'touch-language-detail-view', 'power-detail-view', 'safety-detail-view']
+            ['mes-detail-view', 'counter-detail-view', 'sensor-network-detail-view', 'energy-management-detail-view', 'control-panel-detail-view', 'touch-language-detail-view', 'custom-development-detail-view', 'power-detail-view', 'safety-detail-view']
                 .forEach(id => {
                     const detail = document.getElementById(id);
                     if (detail) {
